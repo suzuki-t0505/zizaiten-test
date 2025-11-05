@@ -1,0 +1,117 @@
+# ============================================
+#  Repository Ruleset for Yoosuke/welcome.zizaiten
+#  Branch & Tag Protection / CI Integration
+# ============================================
+
+# ----------------------------
+# Branch Rules
+# ----------------------------
+rulesets:
+  - name: "Main Branch Protection"
+    target: branch
+    enforcement: active
+    conditions:
+      ref_name:
+        include:
+          - "main"
+    rules:
+      # ブランチの保護設定
+      - type: branch_protection
+        parameters:
+          required_status_checks:
+            strict: true
+            contexts:
+              - "build"
+              - "lint"
+              - "test"
+          required_pull_request_reviews:
+            required_approving_review_count: 1
+            dismiss_stale_reviews_on_push: true
+          allow_force_pushes: false
+          allow_deletions: false
+          require_linear_history: true
+          restrict_pushes: true
+          require_conversation_resolution: true
+
+  - name: "Dev Branch Protection"
+    target: branch
+    enforcement: active
+    conditions:
+      ref_name:
+        include:
+          - "dev"
+    rules:
+      - type: branch_protection
+        parameters:
+          required_status_checks:
+            strict: true
+            contexts:
+              - "build"
+              - "lint"
+          required_pull_request_reviews:
+            required_approving_review_count: 1
+          allow_force_pushes: false
+          allow_deletions: false
+          require_linear_history: true
+
+  - name: "Feature/Fix/Hotfix/Docs Branch Rules"
+    target: branch
+    enforcement: active
+    conditions:
+      ref_name:
+        include:
+          - "feature/*"
+          - "fix/*"
+          - "hotfix/*"
+          - "docs/*"
+    rules:
+      - type: branch_protection
+        parameters:
+          allow_force_pushes: true
+          allow_deletions: true
+          require_linear_history: false
+          required_pull_request_reviews:
+            required_approving_review_count: 0
+      - type: metadata
+        parameters:
+          comment: "開発用短命ブランチ。PRマージ後に削除推奨。"
+
+# ----------------------------
+# Tag Rules
+# ----------------------------
+  - name: "Stable Release Tags"
+    target: tag
+    enforcement: active
+    conditions:
+      ref_name:
+        include:
+          - "v[0-9]*.[0-9]*.[0-9]*"
+    rules:
+      - type: tag_protection
+        parameters:
+          allow_deletions: false
+          allow_tag_creation: false
+          comment: "安定版リリースタグ。CI 以外による作成は禁止。"
+
+  - name: "Pre-release Tags (Beta/RC)"
+    target: tag
+    enforcement: active
+    conditions:
+      ref_name:
+        include:
+          - "v[0-9]*.[0-9]*.[0-9]*-beta.*"
+          - "v[0-9]*.[0-9]*.[0-9]*-rc.*"
+    rules:
+      - type: tag_protection
+        parameters:
+          allow_deletions: false
+          allow_tag_creation: true
+          comment: "ステージング・プレリリース専用タグ。semantic-release などの自動化CIのみ許可。"
+
+# ----------------------------
+# Optional Notes
+# ----------------------------
+# - このルールセットは GitHub Actions の CI (build, lint, test) に連動。
+# - semantic-release / Changesets を使用する場合は、CIがタグを発行。
+# - main/dev 直pushは制限され、PRレビューを経てのみマージ可能。
+# - feature/fix/hotfix/docs ブランチは自由にpush可能、完了後削除推奨。
