@@ -29,6 +29,7 @@
         "prerelease": true
       }
     ],
+    "repositoryUrl": "https://github.com/suzuki-t0505/zizaiten-test",
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -50,14 +51,5 @@
       ],
       "@semantic-release/github"
     ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Yoosuke/welcome.zizaiten.git"
-  },
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/Yoosuke/welcome.zizaiten/issues"
-  },
-  "homepage": "https://github.com/Yoosuke/welcome.zizaiten#readme"
+  }
 }
