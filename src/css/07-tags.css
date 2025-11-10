@@ -1,0 +1,336 @@
+/* セッション0.8.2 - 2025-10-17 */
+/* タグエリア・検索入力・チップ・サジェスト */
+/* 更新: 無料素材表記統一（クラス名・コメント統一） */
+
+/* ========================================
+   タグエリア
+   ======================================== */
+.tag-area {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border-light);
+    flex-shrink: 0;
+}
+
+/* ========================================
+   検索入力コンテナ
+   ======================================== */
+.search-input-container {
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+}
+
+.search-input-area {
+    min-height: 30px;
+    max-height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border-normal);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-primary);
+    font-size: var(--font-md);
+    line-height: 22px;
+    cursor: text;
+    transition: border-color var(--transition-fast);
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.search-input-area:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.search-input-area:empty::before {
+    content: attr(data-placeholder);
+    color: var(--color-text-tertiary);
+    pointer-events: none;
+}
+
+/* 検索入力プルダウンボタン（SP縦画面のみ） */
+.search-input-toggle {
+    display: none;
+}
+
+/* ========================================
+   チップシステム（省略表示対応）
+   ======================================== */
+.tag-chip,
+.text-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 5px var(--spacing-md) 5px 5px; /* 左右反転：削除ボタンが左 */
+    border-radius: var(--radius-full);
+    font-size: var(--font-md);
+    color: var(--color-text-white);
+    cursor: pointer;
+    user-select: none;
+    transition: background var(--transition-fast);
+    margin: 2px;
+    white-space: nowrap;
+    vertical-align: middle;
+    line-height: 1;
+    height: 22px;
+    box-sizing: border-box;
+    max-width: 200px;
+}
+
+/* チップ内のテキスト部分（省略表示） */
+.chip-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+}
+
+/* タグチップ（有効状態） */
+.tag-chip[data-tag-type="collection"][data-active="true"] {
+    background: var(--color-tag-collection);
+}
+.tag-chip[data-tag-type="character"][data-active="true"] {
+    background: var(--color-tag-character);
+}
+.tag-chip[data-tag-type="costume"][data-active="true"] {
+    background: var(--color-tag-costume);
+}
+.tag-chip[data-tag-type="situation"][data-active="true"] {
+    background: var(--color-tag-situation);
+}
+
+/* お気に入り・無料素材チップ（有効状態） */
+.tag-chip[data-tag="お気に入り"][data-active="true"],
+.tag-chip[data-tag="無料素材"][data-active="true"] {
+    background: var(--color-tag-favorite);
+}
+
+/* タグチップ（無効状態） */
+.tag-chip[data-tag-type="collection"][data-active="false"] {
+    background: var(--color-tag-collection-inactive);
+}
+.tag-chip[data-tag-type="character"][data-active="false"] {
+    background: var(--color-tag-character-inactive);
+}
+.tag-chip[data-tag-type="costume"][data-active="false"] {
+    background: var(--color-tag-costume-inactive);
+}
+.tag-chip[data-tag-type="situation"][data-active="false"] {
+    background: var(--color-tag-situation-inactive);
+}
+
+/* お気に入り・無料素材チップ（無効状態） */
+.tag-chip[data-tag="お気に入り"][data-active="false"],
+.tag-chip[data-tag="無料素材"][data-active="false"] {
+    background: var(--color-tag-favorite-inactive);
+}
+
+/* フリーテキストチップ（有効状態） */
+.text-chip[data-active="true"] {
+    background: var(--color-tag-text);
+}
+
+/* フリーテキストチップ（無効状態） */
+.text-chip[data-active="false"] {
+    background: var(--color-tag-text-inactive);
+}
+
+/* チップ削除ボタン */
+.chip-remove {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: var(--color-text-white);
+    font-size: 9px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.chip-remove:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================
+   サジェストドロップダウン
+   ======================================== */
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-normal);
+    border-top: none;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+}
+
+.search-suggestions.show {
+    display: block;
+}
+
+.suggestion-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-md);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background: var(--color-bg-secondary);
+}
+
+.suggestion-item.active {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+/* ========================================
+   タグリストコンテナ
+   ======================================== */
+.tag-list-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    max-height: 24px;
+    overflow: hidden;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border-normal);
+    transition: max-height var(--transition-normal);
+}
+
+.tag-list-container.expanded {
+    max-height: 80px;
+    overflow: hidden;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+}
+
+.accordion-icon {
+    font-size: var(--font-md);
+    transition: transform var(--transition-normal);
+    cursor: pointer;
+    user-select: none;
+    flex-shrink: 0;
+    padding: var(--spacing-xs) 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-gray-200);
+    line-height: 1;
+}
+
+.accordion-icon:hover {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.accordion-icon.open {
+    transform: rotate(180deg);
+}
+
+/* ========================================
+   タグ基本スタイル
+   ======================================== */
+.tag-item {
+    background: var(--color-gray-200);
+    padding: 5px var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-md);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    white-space: nowrap;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    box-sizing: border-box;
+}
+
+.tag-item:hover {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.tag-item.selected {
+    background: var(--color-tag-character);
+    color: var(--color-text-white);
+}
+
+.tag-item.selected-inactive {
+    background: var(--color-tag-character-inactive);
+    color: var(--color-text-white);
+}
+
+/* お気に入りタグ */
+.tag-item.favorite-tag {
+    background: var(--color-gray-200);
+    color: var(--color-text-primary);
+}
+
+.tag-item.favorite-tag:hover {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.tag-item.favorite-tag.selected {
+    background: var(--color-tag-favorite);
+    color: var(--color-text-white);
+}
+
+.tag-item.favorite-tag.selected-inactive {
+    background: var(--color-tag-favorite-inactive);
+    color: var(--color-text-white);
+}
+
+/* 無料素材タグ */
+.tag-item.free-material-tag {
+    background: var(--color-gray-200);
+    color: var(--color-text-primary);
+}
+
+.tag-item.free-material-tag:hover {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.tag-item.free-material-tag.selected {
+    background: var(--color-tag-favorite);
+    color: var(--color-text-white);
+}
+
+.tag-item.free-material-tag.selected-inactive {
+    background: var(--color-tag-favorite-inactive);
+    color: var(--color-text-white);
+}
+
+.tag-item.more-button {
+    background: var(--color-border-normal);
+    font-weight: bold;
+}
+
+.tag-item.more-button:hover {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}

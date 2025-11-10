@@ -1,0 +1,160 @@
+/* セッション0.7.1 - 2025-10-15 */
+/* パネル・タブ制御 */
+/* 更新: CSS変数を適用 */
+
+/* ========================================
+   タブコンテナ（PC・SP横画面）
+   ======================================== */
+.tabs-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: var(--z-desktop-tab);
+}
+
+/* SP縦画面ではデスクトップタブを非表示 */
+.tabs-desktop {
+    display: block;
+}
+
+.tabs-mobile-container {
+    display: none;
+}
+
+.accordion-tab {
+    width: 22px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--color-border-normal);
+    border-left: none;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-xs);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin-bottom: 10px;
+}
+
+.accordion-tab.active {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+/* ========================================
+   パネルコンテナ（PC・SP横画面）
+   ======================================== */
+.panels-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+/* ========================================
+   情報パネルラッパー（境界制御）
+   ======================================== */
+.info-panel-wrapper {
+    width: 0;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: width var(--transition-slow), min-width var(--transition-slow);
+}
+
+.info-panel-wrapper.visible {
+    width: var(--panel-width-pc);
+    min-width: var(--panel-width-pc);
+}
+
+/* プロダクトインフォ（情報パネル本体） */
+.product-info {
+    width: var(--panel-width-pc);
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    border-right: 1px solid var(--color-border-normal);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(calc(var(--panel-width-pc) * -1));
+    transition: transform var(--transition-slow);
+}
+
+/* PC時のタブとの重なり防止（左側にスペース） */
+@media (min-width: 769px) {
+    .product-info {
+        padding-left: var(--spacing-sm);
+    }
+}
+
+.info-panel-wrapper.visible .product-info {
+    transform: translateX(0);
+}
+
+/* ========================================
+   リストパネルラッパー（境界制御）
+   ======================================== */
+.list-panel-wrapper {
+    width: 0;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: width var(--transition-slow), min-width var(--transition-slow);
+}
+
+.list-panel-wrapper.visible {
+    width: var(--panel-width-pc);
+    min-width: var(--panel-width-pc);
+}
+
+.list-panel-wrapper.fullscreen {
+    width: 100%;
+    min-width: 100%;
+    z-index: var(--z-list-fullscreen);
+}
+
+/* コンテンツリスト（リストパネル本体） */
+.content-list {
+    width: var(--panel-width-pc);
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    border-right: 1px solid var(--color-border-normal);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(calc(var(--panel-width-pc) * -1));
+    transition: transform var(--transition-slow);
+}
+
+.list-panel-wrapper.visible .content-list {
+    transform: translateX(0);
+}
+
+.list-panel-wrapper.fullscreen .content-list {
+    width: 100%;
+}
+
+/* PC時のリスト最大化でもタブを表示 */
+.list-panel-wrapper.fullscreen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.list-panel-wrapper.fullscreen .content-list {
+    width: 100%;
+    transform: translateX(0);
+}

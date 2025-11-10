@@ -1,0 +1,161 @@
+/* セッション0.7.1 - 2025-10-15 */
+/* タグ検索モーダル専用スタイル */
+/* 新規作成: 08-modal.cssから分離 */
+
+/* ========================================
+   モーダル検索入力コンテナ
+   ======================================== */
+.modal-search-input-container {
+    margin-bottom: var(--spacing-lg);
+    border: 1px solid var(--color-border-normal);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    background: var(--color-bg-primary);
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/* ========================================
+   結果表示エリア
+   ======================================== */
+.modal-tag-result {
+    background: var(--color-bg-secondary);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-tag-result-text {
+    font-size: var(--font-lg);
+    color: var(--color-text-primary);
+}
+
+.modal-tag-result-count {
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.modal-tag-clear {
+    padding: 6px var(--spacing-lg);
+    background: var(--color-gray-200);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.modal-tag-clear:hover {
+    background: var(--color-gray-300);
+}
+
+/* ========================================
+   カテゴリセクション
+   ======================================== */
+.modal-tag-category {
+    margin-bottom: var(--spacing-lg);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.modal-tag-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-gray-100);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    user-select: none;
+}
+
+.modal-tag-category-header:hover {
+    background: #ebebeb;
+}
+
+.modal-tag-category-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.modal-tag-category-icon {
+    font-size: var(--font-md);
+    transition: transform var(--transition-normal);
+    color: var(--color-text-secondary);
+}
+
+.modal-tag-category.expanded .modal-tag-category-icon {
+    transform: rotate(180deg);
+}
+
+.modal-tag-category-content {
+    display: none;
+    padding: var(--spacing-lg);
+    background: var(--color-bg-primary);
+}
+
+.modal-tag-category.expanded .modal-tag-category-content {
+    display: block;
+}
+
+/* ========================================
+   タググリッド
+   ======================================== */
+.modal-tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.modal-tag-item {
+    background: var(--color-gray-200);
+    padding: 6px var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.modal-tag-item:hover {
+    background: var(--color-gray-300);
+}
+
+.modal-tag-item.selected {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+/* グレーアウト状態（数量0のタグ） */
+.modal-tag-item.grayed-out {
+    background: #e8e8e8;
+    color: #aaa;
+}
+
+.modal-tag-item.grayed-out:hover {
+    background: #d8d8d8;
+}
+
+/* 選択されているタグはグレーアウトしない */
+.modal-tag-item.selected.grayed-out {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.modal-tag-count {
+    font-size: var(--font-sm);
+    opacity: 0.7;
+}
+
+.modal-tag-item.grayed-out .modal-tag-count {
+    opacity: 0.5;
+}

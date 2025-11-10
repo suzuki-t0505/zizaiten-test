@@ -1,0 +1,304 @@
+/* セッション0.8.0 - 2025-10-17 */
+/* 認証UI専用スタイル */
+/* 更新: メッセージの改行表示対応（white-space: pre-wrap）追加 */
+
+/* ========================================
+   ヘッダー：ログインボタン（テキストのみ）
+   ======================================== */
+.login-button {
+    padding: 6px 12px;
+    background: transparent;
+    color: var(--color-text-primary);
+    border: none;
+    font-size: var(--font-md);
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.login-button:hover {
+    color: var(--color-primary);
+}
+
+.login-button:active {
+    transform: scale(0.97);
+}
+
+/* ========================================
+   ヘッダー：会員タイプ表示（テキストのみ）
+   ======================================== */
+.member-type-display {
+    padding: 6px 12px;
+    background: transparent;
+    color: var(--color-text-primary);
+    border: none;
+    font-size: var(--font-md);
+    font-weight: bold;
+    white-space: nowrap;
+    flex-shrink: 0;
+    cursor: default;
+}
+
+/* 将来実装：ドロップダウン対応
+.member-type-display {
+    cursor: pointer;
+}
+
+.member-type-display:hover {
+    color: var(--color-primary);
+}
+*/
+
+/* ========================================
+   モーダル：ログインフォーム
+   ======================================== */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.auth-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.auth-form-label {
+    font-size: var(--font-md);
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.auth-form-input {
+    width: 100%;
+    padding: 12px var(--spacing-md);
+    border: 1px solid var(--color-border-normal);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-md);
+    transition: border-color var(--transition-fast);
+    box-sizing: border-box;
+}
+
+.auth-form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+}
+
+.auth-form-input::placeholder {
+    color: var(--color-text-tertiary);
+}
+
+/* ========================================
+   モーダル：フォーム内エラー・メッセージ
+   ======================================== */
+.auth-form-error {
+    display: none;
+    font-size: var(--font-sm);
+    color: #c62828;
+    margin-top: 4px;
+}
+
+.auth-form-message {
+    display: none;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-sm);
+    line-height: 1.6;
+    white-space: pre-wrap; /* 改行を表示 */
+}
+
+.auth-form-message.success {
+    background: rgba(76, 175, 80, 0.1);
+    color: #2e7d32;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.auth-form-message.error {
+    background: rgba(244, 67, 54, 0.1);
+    color: #c62828;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.auth-form-message.info {
+    background: rgba(33, 150, 243, 0.1);
+    color: #1565c0;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+/* ========================================
+   モーダル：チェックボックス
+   ======================================== */
+.auth-checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+.auth-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.auth-checkbox-label {
+    font-size: var(--font-md);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.auth-checkbox-label a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.auth-checkbox-label a:hover {
+    text-decoration: underline;
+}
+
+/* ========================================
+   モーダル：リンク
+   ======================================== */
+.auth-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.auth-link {
+    font-size: var(--font-sm);
+    color: var(--color-primary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+.auth-link-divider {
+    margin: var(--spacing-lg) 0;
+    border: none;
+    border-top: 1px solid var(--color-border-light);
+}
+
+/* ========================================
+   モーダル：サブミットボタン
+   ======================================== */
+.auth-submit-button {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-primary);
+    color: var(--color-text-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-lg);
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.auth-submit-button:hover {
+    background: var(--color-primary-hover);
+}
+
+.auth-submit-button:active {
+    transform: scale(0.98);
+}
+
+.auth-submit-button:disabled {
+    background: var(--color-gray-400);
+    cursor: not-allowed;
+}
+
+/* ========================================
+   モーダル：メッセージ（旧スタイル・互換性用）
+   ======================================== */
+.auth-message {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.auth-message.success {
+    background: rgba(76, 175, 80, 0.1);
+    color: #2e7d32;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.auth-message.error {
+    background: rgba(244, 67, 54, 0.1);
+    color: #c62828;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.auth-message.info {
+    background: rgba(33, 150, 243, 0.1);
+    color: #1565c0;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+/* ========================================
+   モーダル：セクション
+   ======================================== */
+.auth-section-title {
+    font-size: var(--font-lg);
+    font-weight: bold;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.auth-section-description {
+    font-size: var(--font-md);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+}
+
+/* ========================================
+   レスポンシブ：SP対応
+   ======================================== */
+@media (max-width: 480px) {
+    /* ログインボタンのテキスト短縮 */
+    .login-button-text-full {
+        display: none;
+    }
+    
+    .login-button-text-short {
+        display: inline;
+    }
+    
+    /* フォーム調整 */
+    .auth-form {
+        gap: var(--spacing-lg);
+    }
+    
+    .auth-form-input {
+        padding: 10px var(--spacing-sm);
+    }
+    
+    .auth-submit-button {
+        padding: 12px;
+        font-size: var(--font-md);
+    }
+}
+
+@media (min-width: 481px) {
+    .login-button-text-full {
+        display: inline;
+    }
+    
+    .login-button-text-short {
+        display: none;
+    }
+}

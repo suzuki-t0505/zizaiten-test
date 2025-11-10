@@ -1,0 +1,97 @@
+/* セッション0.8.0 - 2025-10-17 */
+/* メインレイアウト・ヘッダー・フッター */
+/* 更新: ヘッダーにログインボタン・ベルアイコンエリア追加 */
+
+/* ========================================
+   メインレイアウト
+   ======================================== */
+.canvas {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   ヘッダー（35px固定高）
+   ======================================== */
+.header {
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border-normal);
+    padding: 5px var(--spacing-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    height: var(--header-height);
+    flex-shrink: 0;
+    gap: var(--spacing-lg);
+}
+
+/* ヘッダー右側エリア（ログインボタン＋ベルアイコン＋ハンバーガー） */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+.logo {
+    font-size: var(--font-xxl);
+    font-weight: bold;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+}
+
+.logo .zizai {
+    color: var(--color-primary);
+}
+
+.hamburger {
+    width: 24px;
+    height: 24px;
+    background: var(--color-gray-800);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hamburger:focus {
+    outline: none;
+}
+
+.hamburger span {
+    width: 16px;
+    height: 1.5px;
+    background: var(--color-text-white);
+    margin: 1.5px 0;
+}
+
+/* ========================================
+   メインコンテンツエリア
+   ======================================== */
+.content {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ========================================
+   フッター（16px相当）
+   ======================================== */
+.footer {
+    background: var(--color-gray-800);
+    color: var(--color-text-white);
+    text-align: center;
+    padding: var(--spacing-sm);
+    font-size: var(--font-xs);
+    flex-shrink: 0;
+    z-index: var(--z-footer);
+    position: relative;
+}

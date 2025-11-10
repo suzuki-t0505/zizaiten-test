@@ -1,13 +1,347 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>welcome.zizaiten</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- セッション0.9.0 - 2025-10-17 -->
+    <!-- 壽屋ジザイテンサイトワイヤーフレーム -->
+    <!-- 更新: ハンバーガーメニュー実装 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZIZAITEN - 自在視点マンガ素材集</title>
+    
+    <!-- CSS読み込み（読み込み順序厳守） -->
+    <!-- 基盤 -->
+    <link rel="stylesheet" href="src/css/01-reset.css">
+    <link rel="stylesheet" href="src/css/02-layout.css">
+    
+    <!-- コンポーネント -->
+    <link rel="stylesheet" href="src/css/03-panels.css">
+    <link rel="stylesheet" href="src/css/04-viewer.css">
+    <link rel="stylesheet" href="src/css/05-buttons.css">
+    <link rel="stylesheet" href="src/css/06-seekbar.css">
+    <link rel="stylesheet" href="src/css/07-tags.css">
+    <link rel="stylesheet" href="src/css/08-thumbnails.css">
+    <link rel="stylesheet" href="src/css/09-info.css">
+    <link rel="stylesheet" href="src/css/10-modal-base.css">
+    <link rel="stylesheet" href="src/css/11-modal-search.css">
+    
+    <!-- レスポンシブ -->
+    <link rel="stylesheet" href="src/css/12-responsive.css">
+    <link rel="stylesheet" href="src/css/13-responsive-sp.css">
+    
+    <!-- ユーティリティ -->
+    <link rel="stylesheet" href="src/css/14-utilities.css">
+    
+    <!-- 認証・通知UI -->
+    <link rel="stylesheet" href="src/css/15-auth.css">
+    <link rel="stylesheet" href="src/css/16-notifications.css">
+    
+    <!-- ヘルプポップアップ -->
+    <link rel="stylesheet" href="src/css/17-popup-help.css">
+    
+    <!-- ハンバーガーメニュー（新規） -->
+    <link rel="stylesheet" href="src/css/18-hamburger-menu.css">
+    
+    <!-- Gmail風メールスタイル（独立） -->
+    <link rel="stylesheet" href="src/demomail//mail.css">
+</head>
+<body>
+    <div class="canvas">
+        <!-- ヘッダー -->
+        <header class="header">
+            <div class="logo">
+                <span class="zizai">ZIZAI</span>TEN
+            </div>
+            <div class="header-right">
+                <!-- ログインボタン または 会員タイプ表示（動的生成） -->
+                <!-- ベルアイコン（動的生成） -->
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- メインコンテンツエリア -->
+        <main class="content">
+            <!-- タブ（PC・SP横：左端） -->
+            <div class="tabs-container tabs-desktop">
+                <div class="accordion-tab" id="listTab">リスト</div>
+                <div class="accordion-tab" id="infoTab">情報</div>
+            </div>
+            
+            <!-- パネルとJSコンテンツのコンテナ -->
+            <div class="panels-container">
+                <!-- 情報パネルラッパー（境界制御用） -->
+                <div class="info-panel-wrapper" id="infoPanelWrapper">
+                    <!-- プロダクトインフォ（情報パネル） -->
+                    <aside class="product-info" id="productInfo">
+                        <!-- バリエーションエリア（一番上） -->
+                        <div class="variation-area" id="variationArea" style="display: none;">
+                            <div class="variation-section">
+                                <h3>バリエーション</h3>
+                            </div>
+                            <div class="variation-content">
+                                <div class="variation-grid" id="variationGrid"></div>
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>Title</h3>
+                            <div class="title-text" id="titleText">
+                                素材を選択してください
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>Description</h3>
+                            <div class="description-text" id="descriptionText">
+                                サムネイルをクリックすると、詳細情報が表示されます。
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>Tags</h3>
+                            <div class="info-tags" id="infoTags"></div>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- リストパネルラッパー（境界制御用） -->
+                <div class="list-panel-wrapper" id="listPanelWrapper">
+                    <!-- コンテンツリスト（リストパネル） -->
+                    <aside class="content-list" id="contentList">
+                        <!-- タグエリア -->
+                        <div class="tag-area">
+                            <!-- 検索入力コンテナ -->
+                            <div class="search-input-container" id="searchInputContainer">
+                                <!-- 入力エリア（contenteditable） -->
+                                <div class="search-input-area" 
+                                     id="searchInputArea"
+                                     contenteditable="true" 
+                                     data-placeholder="タグまたはテキストで検索"></div>
+                                
+                                <!-- サジェストドロップダウン -->
+                                <div class="search-suggestions" id="searchSuggestions"></div>
+                            </div>
+                            
+                            <!-- プルダウンボタン（SP縦画面のみ） -->
+                            <button class="search-input-toggle hide" id="searchInputToggle">▼</button>
+                            
+                            <!-- タグリストコンテナ（キャラクタータグ + プルダウン + moreボタン） -->
+                            <div class="tag-list-container" id="tagListContainer">
+                                <div class="tag-list" id="tagList"></div>
+                                <span class="accordion-icon" id="accordionIcon">▼</span>
+                            </div>
+                        </div>
+
+                        <!-- サムネエリア -->
+                        <div class="thumbnail-area">
+                            <div class="thumbnail-container">
+                                <div class="thumbnail-grid" id="thumbnailGrid"></div>
+                            </div>
+                        </div>
+
+                        <!-- コントロールエリア -->
+                        <div class="control-area">
+                            <div class="control-row">
+                                <span class="slider-label">o</span>
+                                <input type="range" class="grid-size-slider" id="gridSizeSlider" 
+                                       min="40" max="120" value="60" step="1">
+                                <span class="slider-label">O</span>
+                                <button class="wide-toggle" id="wideToggle">⇔</button>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- JSコンテンツエリア（CSS 3D ビューア） -->
+                <section class="js-content" id="jsContent">
+                    <!-- 通知エリア -->
+                    <div class="notification-container" id="notificationContainer"></div>
+                    
+                    <!-- タイトル表示 -->
+                    <div class="js-content-title" id="jsContentTitle">
+                        素材を選択してください
+                    </div>
+                    
+                    <!-- モード表示（左上） -->
+                    <div class="mode-indicator" id="modeIndicator">カメラモード</div>
+                    
+                    <!-- ?ヘルプボタン -->
+                    <button class="help-button" id="helpButton">?</button>
+                    
+                    <!-- C/Sボタン（左側、SPのみ） -->
+                    <div class="control-buttons-left" id="controlButtonsLeft">
+                        <div class="btn-c-container">
+                            <button class="control-btn-cs" id="btnC">C</button>
+                        </div>
+                        <div class="btn-s-container">
+                            <button class="control-btn-cs" id="btnS">S</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Captureボタン（右側） -->
+                    <div class="control-buttons-right" id="controlButtonsRight">
+                        <button class="capture-btn" id="btnCapture">
+                            <!-- キャプチャーカウントバッジ -->
+                            <div class="capture-count-badge" id="captureCountBadge">0</div>
+                        </button>
+                    </div>
+                    
+                    <!-- 3Dビューア -->
+                    <div class="js-viewer" id="jsViewer">
+                        <div class="viewer-3d-space" id="viewer3dSpace">
+                            <div class="viewer-grid"></div>
+                            <div class="viewer-image-plane" id="viewerImagePlane">
+                                <div class="viewer-placeholder">素材を選択してください</div>
+                            </div>
+                            <div class="viewer-notice">UI検証用のダミーコンテンツです。実際の製品では3Dデータが表示されます。</div>
+                        </div>
+                    </div>
+                    
+                    <!-- シークバー -->
+                    <div class="sequence-bar-container" id="sequenceBarContainer">
+                        <button class="seq-btn" id="btnPrevFrame">◀</button>
+                        <button class="seq-btn play" id="btnPlay">▶</button>
+                        <button class="seq-btn" id="btnNextFrame">▶</button>
+                        <div class="sequence-bar" id="sequenceBar">
+                            <div class="sequence-bar-progress"></div>
+                            <div class="sequence-bar-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- フレーム表示 -->
+                    <div class="frame-display" id="frameDisplay">1 / 24</div>
+                </section>
+            </div>
+            
+            <!-- タブ（SP縦画面専用：フッター上部） -->
+            <div class="tabs-mobile-container">
+                <div class="accordion-tab" id="listTabMobile">リスト</div>
+                <div class="accordion-tab" id="infoTabMobile">情報</div>
+            </div>
+        </main>
+
+        <!-- フッター -->
+        <footer class="footer">
+            © 2025 KOTOBUKIYA ZIZAITEN - セッション0.9.0
+        </footer>
+    </div>
+
+    <!-- ハンバーガーメニュー（新規） -->
+    <div id="hamburgerMenu" class="hamburger-menu">
+        <!-- ヘッダー部 -->
+        <div class="hamburger-menu-header">
+            <div class="hamburger-user-info">
+                <div class="hamburger-user-name">ゲスト</div>
+                <div class="hamburger-plan-name">フリープラン</div>
+                <div class="hamburger-studio-name" style="display: none;">（スタジオなし）</div>
+            </div>
+            <button class="hamburger-close" onclick="closeHamburgerMenu()">✕</button>
+        </div>
+        
+        <!-- メインメニュー -->
+        <nav class="hamburger-menu-body">
+            <!-- アカウント系 -->
+            <div class="hamburger-section">
+                <a href="#" class="hamburger-menu-item" onclick="navigateToAccountManagement(); return false;">アカウント管理</a>
+                <button class="hamburger-menu-item" onclick="showUpgradeModal()">
+                    プランをアップグレード
+                </button>
+                <button class="hamburger-menu-item" onclick="handleHamburgerLogout()">
+                    ログアウト
+                </button>
+            </div>
+            
+            <!-- 設定系 -->
+            <div class="hamburger-section">
+                <div class="hamburger-section-title">設定</div>
+                
+                <!-- 言語切り替え -->
+                <div class="hamburger-setting-item">
+                    <span>言語</span>
+                    <div class="hamburger-toggle-group">
+                        <button class="toggle-btn active" onclick="changeLanguage('JP')">JP</button>
+                        <button class="toggle-btn" onclick="changeLanguage('KO')">KO</button>
+                        <button class="toggle-btn" onclick="changeLanguage('EN')">EN</button>
+                    </div>
+                </div>
+                
+                <!-- PROビュアー（新規） -->
+                <div class="hamburger-setting-item">
+                    <span>PROビュアー</span>
+                    <button class="toggle-switch" id="proViewerSwitch" onclick="toggleProViewer()">
+                        <span class="toggle-switch-slider"></span>
+                    </button>
+                </div>
+                
+                <!-- ダークモード -->
+                <div class="hamburger-setting-item">
+                    <span>ダークモード</span>
+                    <button class="toggle-switch" id="darkModeSwitch" onclick="toggleDarkMode()">
+                        <span class="toggle-switch-slider"></span>
+                    </button>
+                </div>
+                
+                <!-- レフティモード -->
+                <div class="hamburger-setting-item">
+                    <span>レフティモード</span>
+                    <button class="toggle-switch" id="leftyModeSwitch" onclick="toggleLeftyMode()">
+                        <span class="toggle-switch-slider"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- その他 -->
+            <div class="hamburger-section">
+                <button class="hamburger-menu-item" onclick="showInviteFriendModal()">
+                    フレンド招待
+                </button>
+            </div>
+            
+            <!-- フッターリンク -->
+            <div class="hamburger-section">
+                <a href="#" class="hamburger-menu-item-small" onclick="navigateToTerms(); return false;">利用規約</a>
+                <a href="#" class="hamburger-menu-item-small" onclick="navigateToHelp(); return false;">ヘルプ</a>
+                <a href="#" class="hamburger-menu-item-small" onclick="navigateToCompany(); return false;">運営会社</a>
+                <button class="hamburger-menu-item-small" onclick="showOSSLicenseModal()">
+                    OSSライセンス表記
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- オーバーレイ背景（新規） -->
+    <div id="hamburgerBackdrop" class="hamburger-backdrop" onclick="closeHamburgerMenu()"></div>
+
+    <!-- JavaScript読み込み（依存関係順） -->
+    <script src="src/js/state.js"></script>
+    <script src="src/js/data.js"></script>
+    <script src="src/js/filtering.js"></script>
+    <script src="src/js/modal.js"></script>
+    <script src="src/js/ui.js"></script>
+    <script src="src/js/chips.js"></script>
+    <script src="src/js/suggest.js"></script>
+    <script src="src/js/searchinput.js"></script>
+    <script src="src/js/modalsearch.js"></script>
+    <script src="src/js/tagmodal.js"></script>
+    <script src="src/js/tags.js"></script>
+    <script src="src/js/capture.js"></script>
+    <script src="src/js/panels.js"></script>
+    <script src="src/js/viewer.js"></script>
+    <script src="src/js/controls.js"></script>
+    <script src="src/js/events.js"></script>
+    <!-- 認証・通知関連 -->
+    <script src="src/js/auth.js"></script>
+    <script src="src/js/notifications.js"></script>
+    <script src="src/js/login.js"></script>
+    <script src="src/js/header.js"></script>
+    <!-- ヘルプポップアップ -->
+    <script src="src/js/help.js"></script>
+    <!-- ハンバーガーメニュー（新規） -->
+    <script src="src/js/hamburger.js"></script>
+    <!-- メイン初期化 -->
+    <script src="src/js/main.js"></script>
+</body>
 </html>

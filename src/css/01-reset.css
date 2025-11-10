@@ -1,0 +1,182 @@
+/* セッション0.7.1 - 2025-10-15 */
+/* リセット・基本設定・CSS変数定義 */
+/* 更新: CSS変数を大幅拡張（色・余白・サイズ・アニメーション） */
+
+/* ========================================
+   リセットCSS
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ========================================
+   CSS Variables（全体設計値の一元管理）
+   ======================================== */
+:root {
+    /* ========================================
+       サイズ・高さ
+       ======================================== */
+    /* サムネイルサイズ */
+    --thumbnail-size: 60px;
+    
+    /* パネル幅 */
+    --panel-width-pc: 350px;
+    --panel-width-sp-list: 150px;
+    --panel-width-sp-info: 280px;
+    
+    /* SP縦画面のパネル高さ */
+    --info-height-sp: 162px;
+    --list-height-sp: 240px;
+    
+    /* 基準高さ */
+    --header-height: 35px;
+    --footer-height: 24px;
+    --tab-height-sp: 38px;
+    
+    /* ボタン位置（基準値） */
+    --control-bottom-base: 70px;
+    --seekbar-bottom-base: 15px;
+    --frame-bottom-base: 40px;
+    
+    /* ========================================
+       z-index階層（上から順に定義）
+       ======================================== */
+    --z-notification: 300;
+    --z-mobile-tab: 300;
+    --z-footer: 290;
+    --z-desktop-tab: 260;
+    --z-info-panel: 250;
+    --z-list-fullscreen: 251;
+    --z-list-panel: 240;
+    --z-controls: 100;
+    --z-seekbar: 90;
+    
+    /* ========================================
+       ブランドカラー
+       ======================================== */
+    --color-primary: #b8860b;
+    --color-primary-hover: #a07509;
+    --color-primary-light: #daa520;
+    
+    /* ========================================
+       タグカラー（有効状態）
+       ======================================== */
+    --color-tag-collection: #4a5a7c;
+    --color-tag-character: #333;
+    --color-tag-costume: #4a7c59;
+    --color-tag-situation: #7c4a59;
+    --color-tag-favorite: #ff9800;
+    --color-tag-text: #d97c4a;
+    
+    /* タグカラー（無効状態） */
+    --color-tag-collection-inactive: #8a9abc;
+    --color-tag-character-inactive: #666;
+    --color-tag-costume-inactive: #8abc99;
+    --color-tag-situation-inactive: #bc8a99;
+    --color-tag-favorite-inactive: #ffb74d;
+    --color-tag-text-inactive: #e9bc9a;
+    
+    /* ========================================
+       グレースケール
+       ======================================== */
+    --color-gray-50: #f9f9f9;
+    --color-gray-100: #f5f5f5;
+    --color-gray-200: #f0f0f0;
+    --color-gray-300: #e0e0e0;
+    --color-gray-400: #ddd;
+    --color-gray-500: #ccc;
+    --color-gray-600: #999;
+    --color-gray-700: #666;
+    --color-gray-800: #333;
+    --color-gray-900: #222;
+    
+    /* ========================================
+       機能色
+       ======================================== */
+    --color-success: #4a7c59;
+    --color-error: #dc3545;
+    --color-warning: #ff9800;
+    
+    /* テキストカラー */
+    --color-text-primary: #333;
+    --color-text-secondary: #666;
+    --color-text-tertiary: #999;
+    --color-text-white: #fff;
+    
+    /* 背景色 */
+    --color-bg-primary: #fff;
+    --color-bg-secondary: #f9f9f9;
+    --color-bg-tertiary: #f5f5f5;
+    
+    /* ボーダー色 */
+    --color-border-light: #eee;
+    --color-border-normal: #ddd;
+    --color-border-dark: #ccc;
+    
+    /* ========================================
+       余白（Spacing）
+       ======================================== */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 20px;
+    --spacing-xxl: 24px;
+    
+    /* ========================================
+       フォントサイズ
+       ======================================== */
+    --font-xs: 10px;
+    --font-sm: 11px;
+    --font-md: 12px;
+    --font-lg: 14px;
+    --font-xl: 16px;
+    --font-xxl: 18px;
+    
+    /* ========================================
+       ボーダー半径
+       ======================================== */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-full: 999px;
+    
+    /* ========================================
+       アニメーション速度
+       ======================================== */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.4s ease;
+    
+    /* ========================================
+       シャドウ
+       ======================================== */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   共通アニメーション
+   ======================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

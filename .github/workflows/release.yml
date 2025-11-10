@@ -65,6 +65,9 @@ jobs:
           npm i
           npm run build
 
+      - name: cp
+        run: cp -r src ./dist
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

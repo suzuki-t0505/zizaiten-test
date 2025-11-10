@@ -1,0 +1,280 @@
+/* セッション0.8.3 - 2025-10-17 */
+/* ヘルプポップアップウィンドウ */
+/* D&D可能な小型ポップアップシステム（オーバーレイなし） */
+
+/* ========================================
+   ポップアップコンテナ（D&D可能・オーバーレイなし）
+   ======================================== */
+.help-popup-container {
+    position: fixed;
+    width: 340px;
+    height: 450px;
+    max-width: 90vw;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    z-index: 900;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: default;
+    /* 初期位置: 画面右上 */
+    top: 80px;
+    right: 20px;
+}
+
+.help-popup-container.show {
+    display: flex;
+}
+
+.help-popup-container.dragging {
+    cursor: move;
+    user-select: none;
+}
+
+/* ========================================
+   ヘッダー（ドラッグハンドル）
+   ======================================== */
+.help-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, #4a7c8c 0%, #3a6c7c 100%);
+    color: white;
+    cursor: move;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.help-popup-title {
+    font-size: 14px;
+    font-weight: bold;
+    flex: 1;
+}
+
+.help-popup-page-indicator {
+    font-size: 11px;
+    opacity: 0.9;
+    margin-right: 8px;
+}
+
+.help-popup-close {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.help-popup-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.help-popup-close:active {
+    transform: scale(0.95);
+}
+
+/* ========================================
+   コンテンツエリア
+   ======================================== */
+.help-popup-content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* スクロールバーのスタイル */
+.help-popup-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.help-popup-content::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 3px;
+}
+
+.help-popup-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.help-popup-content::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+/* ========================================
+   ページコンテンツスタイル
+   ======================================== */
+.help-page-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4a7c8c;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #4a7c8c;
+    padding-bottom: 6px;
+}
+
+.help-section {
+    margin-bottom: 16px;
+}
+
+.help-section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    padding-left: 8px;
+    border-left: 3px solid #4a7c8c;
+}
+
+.help-text {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.help-operation-key {
+    display: inline-block;
+    padding: 1px 6px;
+    background: #e8e8e8;
+    border: 1px solid #999;
+    border-radius: 3px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 11px;
+    color: #333;
+    margin: 0 2px;
+}
+
+.help-highlight {
+    font-weight: bold;
+    color: #4a7c8c;
+}
+
+.help-note {
+    padding: 8px;
+    background: rgba(74, 124, 140, 0.1);
+    border-left: 3px solid #4a7c8c;
+    border-radius: 4px;
+    margin-top: 8px;
+    color: #555;
+    font-size: 11px;
+}
+
+.help-divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 12px 0;
+}
+
+/* ========================================
+   フッター（ページネーション）
+   ======================================== */
+.help-popup-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+
+.help-nav-button {
+    padding: 4px 12px;
+    border: 1px solid #ccc;
+    background: white;
+    color: #333;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 60px;
+}
+
+.help-nav-button:hover:not(:disabled) {
+    background: #f0f0f0;
+    border-color: #4a7c8c;
+    color: #4a7c8c;
+}
+
+.help-nav-button:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.help-nav-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.help-page-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.help-page-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ccc;
+    transition: all 0.2s ease;
+}
+
+.help-page-dot.active {
+    width: 10px;
+    height: 10px;
+    background: #4a7c8c;
+}
+
+/* ========================================
+   レスポンシブ対応
+   ======================================== */
+
+/* SP縦画面 */
+@media (max-width: 768px) and (orientation: portrait) {
+    .help-popup-container {
+        width: 90vw;
+        height: 420px;
+        top: 60px;
+        right: 5vw;
+    }
+    
+    .help-popup-content {
+        padding: 12px;
+        font-size: 11px;
+    }
+    
+    .help-page-title {
+        font-size: 14px;
+    }
+    
+    .help-section-title {
+        font-size: 12px;
+    }
+    
+    .help-nav-button {
+        min-width: 50px;
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+}
+
+/* SP横画面 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .help-popup-container {
+        height: 380px;
+    }
+}

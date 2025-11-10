@@ -1,0 +1,275 @@
+/* セッション0.7.1 - 2025-10-15 */
+/* 共通ユーティリティクラス */
+/* 新規作成: 頻出パターンのクラス化 */
+
+/* ========================================
+   フレックスレイアウト
+   ======================================== */
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+/* ========================================
+   表示制御
+   ======================================== */
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+/* ========================================
+   余白（Padding）
+   ======================================== */
+.p-0 {
+    padding: 0;
+}
+
+.p-xs {
+    padding: var(--spacing-xs);
+}
+
+.p-sm {
+    padding: var(--spacing-sm);
+}
+
+.p-md {
+    padding: var(--spacing-md);
+}
+
+.p-lg {
+    padding: var(--spacing-lg);
+}
+
+.p-xl {
+    padding: var(--spacing-xl);
+}
+
+.p-xxl {
+    padding: var(--spacing-xxl);
+}
+
+/* ========================================
+   余白（Margin）
+   ======================================== */
+.m-0 {
+    margin: 0;
+}
+
+.m-xs {
+    margin: var(--spacing-xs);
+}
+
+.m-sm {
+    margin: var(--spacing-sm);
+}
+
+.m-md {
+    margin: var(--spacing-md);
+}
+
+.m-lg {
+    margin: var(--spacing-lg);
+}
+
+.m-xl {
+    margin: var(--spacing-xl);
+}
+
+.m-xxl {
+    margin: var(--spacing-xxl);
+}
+
+/* ========================================
+   テキスト配置
+   ======================================== */
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* ========================================
+   フォント
+   ======================================== */
+.text-bold {
+    font-weight: bold;
+}
+
+.text-normal {
+    font-weight: normal;
+}
+
+.text-xs {
+    font-size: var(--font-xs);
+}
+
+.text-sm {
+    font-size: var(--font-sm);
+}
+
+.text-md {
+    font-size: var(--font-md);
+}
+
+.text-lg {
+    font-size: var(--font-lg);
+}
+
+.text-xl {
+    font-size: var(--font-xl);
+}
+
+.text-xxl {
+    font-size: var(--font-xxl);
+}
+
+/* ========================================
+   色
+   ======================================== */
+.text-primary {
+    color: var(--color-primary);
+}
+
+.text-gray {
+    color: var(--color-text-secondary);
+}
+
+.text-white {
+    color: var(--color-text-white);
+}
+
+.bg-primary {
+    background-color: var(--color-primary);
+}
+
+.bg-white {
+    background-color: var(--color-bg-primary);
+}
+
+.bg-gray {
+    background-color: var(--color-gray-200);
+}
+
+/* ========================================
+   ボーダー
+   ======================================== */
+.border {
+    border: 1px solid var(--color-border-normal);
+}
+
+.border-top {
+    border-top: 1px solid var(--color-border-normal);
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--color-border-normal);
+}
+
+.border-left {
+    border-left: 1px solid var(--color-border-normal);
+}
+
+.border-right {
+    border-right: 1px solid var(--color-border-normal);
+}
+
+.border-radius {
+    border-radius: var(--radius-sm);
+}
+
+.border-radius-full {
+    border-radius: var(--radius-full);
+}
+
+/* ========================================
+   シャドウ
+   ======================================== */
+.shadow-sm {
+    box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+    box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+    box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   トランジション
+   ======================================== */
+.transition {
+    transition: var(--transition-normal);
+}
+
+.transition-fast {
+    transition: var(--transition-fast);
+}
+
+.transition-slow {
+    transition: var(--transition-slow);
+}
+
+/* ========================================
+   カーソル
+   ======================================== */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-default {
+    cursor: default;
+}
+
+/* ========================================
+   オーバーフロー
+   ======================================== */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+}

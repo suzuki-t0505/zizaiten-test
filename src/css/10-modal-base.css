@@ -1,0 +1,300 @@
+/* セッション0.7.2 - 2025-10-15 */
+/* 汎用モーダルシステム */
+/* 修正: animationプロパティのCSS変数使用バグを修正 */
+
+/* ========================================
+   モーダルオーバーレイ
+   ======================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    backdrop-filter: blur(2px);
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+/* ========================================
+   モーダルコンテナ
+   ======================================== */
+.modal-container {
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    overflow: hidden;
+    /* 修正: CSS変数を使うとeaseが2重になるため固定値に */
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ========================================
+   モーダルサイズ（3種類）
+   ======================================== */
+
+/* 小: ログイン・会員登録用 */
+.modal-container.modal-size-small {
+    width: 400px;
+    max-width: 100%;
+}
+
+/* 中: サブスク金額表示・タグ検索用 */
+.modal-container.modal-size-medium {
+    width: 600px;
+    max-width: 100%;
+}
+
+/* 大: 利用規約など表示用 */
+.modal-container.modal-size-large {
+    width: 800px;
+    height: 600px;
+    max-width: 100%;
+    max-height: 90vh;
+}
+
+/* SP時の調整 */
+@media (max-width: 768px) {
+    .modal-container.modal-size-small,
+    .modal-container.modal-size-medium,
+    .modal-container.modal-size-large {
+        width: 90%;
+        max-width: 90%;
+    }
+    
+    .modal-container.modal-size-large {
+        height: auto;
+        max-height: 80vh;
+    }
+}
+
+/* ========================================
+   モーダルヘッダー
+   ======================================== */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-xl) var(--spacing-xxl);
+    border-bottom: 1px solid var(--color-border-light);
+    flex-shrink: 0;
+}
+
+.modal-title {
+    font-size: var(--font-xxl);
+    font-weight: bold;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--color-gray-200);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: var(--font-xl);
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+}
+
+.modal-close:hover {
+    background: var(--color-gray-300);
+    color: var(--color-text-primary);
+}
+
+.modal-close:active {
+    transform: scale(0.95);
+}
+
+/* ========================================
+   モーダルコンテンツ
+   ======================================== */
+.modal-content {
+    flex: 1;
+    padding: var(--spacing-xxl);
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/* 縦スクロールのみ */
+.modal-content.scroll-vertical {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* 横スクロールのみ */
+.modal-content.scroll-horizontal {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* スクロールなし */
+.modal-content.scroll-none {
+    overflow: hidden;
+}
+
+/* スクロールバーのスタイル（WebKit） */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: var(--color-gray-200);
+    border-radius: var(--radius-sm);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--color-gray-500);
+    border-radius: var(--radius-sm);
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-tertiary);
+}
+
+/* ========================================
+   モーダルフッター
+   ======================================== */
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: var(--spacing-lg) var(--spacing-xxl);
+    border-top: 1px solid var(--color-border-light);
+    flex-shrink: 0;
+}
+
+/* フッター非表示 */
+.modal-footer.hide {
+    display: none;
+}
+
+/* ========================================
+   モーダルボタン
+   ======================================== */
+.modal-button-cancel,
+.modal-button-ok {
+    padding: 10px var(--spacing-xxl);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-lg);
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    min-width: 80px;
+}
+
+.modal-button-cancel {
+    background: var(--color-gray-200);
+    color: var(--color-text-secondary);
+}
+
+.modal-button-cancel:hover {
+    background: var(--color-gray-300);
+    color: var(--color-text-primary);
+}
+
+.modal-button-ok {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.modal-button-ok:hover {
+    background: var(--color-primary-hover);
+}
+
+.modal-button-cancel:active,
+.modal-button-ok:active {
+    transform: scale(0.97);
+}
+
+/* ボタン個別非表示 */
+.modal-button-cancel.hide,
+.modal-button-ok.hide {
+    display: none;
+}
+
+/* ========================================
+   ユーティリティクラス
+   ======================================== */
+
+/* センター寄せコンテンツ */
+.modal-content-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* フォームレイアウト */
+.modal-form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.modal-form-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: var(--font-lg);
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.modal-form-input {
+    width: 100%;
+    padding: 10px var(--spacing-md);
+    border: 1px solid var(--color-border-normal);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-lg);
+    transition: border-color var(--transition-fast);
+}
+
+.modal-form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.modal-form-textarea {
+    width: 100%;
+    padding: 10px var(--spacing-md);
+    border: 1px solid var(--color-border-normal);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-lg);
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color var(--transition-fast);
+}
+
+.modal-form-textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}

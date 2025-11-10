@@ -1,0 +1,270 @@
+/* セッション0.7.2 - 2025-10-15 */
+/* サムネイルエリア・グリッド・バッジ・コントロール */
+/* 修正: animationプロパティのCSS変数使用バグを修正 */
+
+/* ========================================
+   サムネエリア
+   ======================================== */
+.thumbnail-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left: var(--spacing-xl);
+}
+
+.thumbnail-container {
+    padding: var(--spacing-lg) 0;
+    padding-right: var(--spacing-xl);
+    margin-left: 5px;
+}
+
+.thumbnail-grid {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(auto-fill, var(--thumbnail-size, 60px));
+    justify-content: center;
+}
+
+/* ========================================
+   サムネイルアイテム
+   ======================================== */
+.thumbnail-item {
+    aspect-ratio: 1;
+    background: var(--color-border-normal);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+    position: relative;
+    width: var(--thumbnail-size, 60px);
+    height: var(--thumbnail-size, 60px);
+    overflow: hidden;
+    opacity: 0;
+    /* 修正: CSS変数を使うとeaseが2重になるため固定値に */
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* フェードインアニメーション（段階的遅延） */
+.thumbnail-item:nth-child(1) { animation-delay: 0.02s; }
+.thumbnail-item:nth-child(2) { animation-delay: 0.04s; }
+.thumbnail-item:nth-child(3) { animation-delay: 0.06s; }
+.thumbnail-item:nth-child(4) { animation-delay: 0.08s; }
+.thumbnail-item:nth-child(5) { animation-delay: 0.10s; }
+.thumbnail-item:nth-child(6) { animation-delay: 0.12s; }
+.thumbnail-item:nth-child(7) { animation-delay: 0.14s; }
+.thumbnail-item:nth-child(8) { animation-delay: 0.16s; }
+.thumbnail-item:nth-child(9) { animation-delay: 0.18s; }
+.thumbnail-item:nth-child(10) { animation-delay: 0.20s; }
+.thumbnail-item:nth-child(11) { animation-delay: 0.22s; }
+.thumbnail-item:nth-child(12) { animation-delay: 0.24s; }
+.thumbnail-item:nth-child(13) { animation-delay: 0.26s; }
+.thumbnail-item:nth-child(14) { animation-delay: 0.28s; }
+.thumbnail-item:nth-child(15) { animation-delay: 0.30s; }
+.thumbnail-item:nth-child(n+16) { animation-delay: 0.32s; }
+
+.thumbnail-item:hover {
+    transform: scale(1.05);
+}
+
+.thumbnail-item.selected {
+    border: 3px solid var(--color-primary);
+    box-shadow: 0 0 10px rgba(184, 134, 11, 0.5);
+}
+
+.thumbnail-item img:not(.thumbnail-pin):not(.thumbnail-star) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========================================
+   サムネイル装飾（★・ピン・FREEバッジ）
+   ======================================== */
+
+/* ★マーク（左下） */
+.thumbnail-star {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    font-size: var(--font-sm);
+    color: rgba(255, 255, 255, 0.4);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    cursor: pointer;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+    pointer-events: auto;
+}
+
+.thumbnail-star:hover {
+    color: rgba(255, 255, 255, 0.7);
+    transform: scale(1.15);
+}
+
+.thumbnail-star.active {
+    color: #ffd700;
+    text-shadow: 0 1px 3px rgba(255, 215, 0, 0.4);
+}
+
+/* ピンアイコン（右上） */
+.thumbnail-pin {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: calc(var(--thumbnail-size) * 0.24) !important;
+    height: calc(var(--thumbnail-size) * 0.24) !important;
+    object-fit: contain;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.thumbnail-pin:not(.removing) {
+    /* 修正: CSS変数を使うとeaseが2重になるため固定値に */
+    animation: pinIn 0.4s ease forwards;
+}
+
+/* ピンアイコンアニメーション */
+@keyframes pinIn {
+    0% {
+        opacity: 0;
+        transform: translate(100%, -100%);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+.thumbnail-pin.removing {
+    /* 修正: CSS変数を使うとeaseが2重になるため固定値に */
+    animation: pinOut 0.4s ease forwards !important;
+}
+
+@keyframes pinOut {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(100%, -100%);
+    }
+}
+
+/* FREEバッジ（左上三角形） */
+.free-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 14px 14px 0 0;
+    border-color: var(--color-primary) transparent transparent transparent;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.free-badge::after {
+    content: 'FREE';
+    position: absolute;
+    top: -12px;
+    left: 1px;
+    font-size: 6px;
+    font-weight: bold;
+    color: var(--color-text-white);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.thumbnail-item:hover .free-badge::after {
+    opacity: 1;
+}
+
+/* ========================================
+   コントロールエリア
+   ======================================== */
+.control-area {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-top: 1px solid var(--color-border-light);
+    background: rgba(248, 248, 248, 0.9);
+    flex-shrink: 0;
+}
+
+.control-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.grid-size-slider {
+    flex: 1;
+    height: 3px;
+    background: var(--color-border-normal);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.grid-size-slider:focus {
+    outline: none;
+}
+
+.grid-size-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.grid-size-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.slider-label {
+    font-size: var(--font-md);
+    color: var(--color-text-secondary);
+    min-width: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.wide-toggle {
+    background: var(--color-gray-200);
+    border: none;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: var(--font-lg);
+    transition: background var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 24px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.wide-toggle:hover {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.wide-toggle:focus {
+    outline: none;
+}

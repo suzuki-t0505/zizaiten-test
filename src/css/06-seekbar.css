@@ -1,0 +1,115 @@
+/* セッション0.7.1 - 2025-10-15 */
+/* シークバー・フレーム表示 */
+/* 新規作成: 05-controls.cssから分離 */
+
+/* ========================================
+   シークバーエリア
+   ======================================== */
+.sequence-bar-container {
+    position: absolute;
+    bottom: var(--seekbar-bottom-base);
+    left: 0;
+    right: 0;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+    z-index: var(--z-seekbar);
+    transition: bottom var(--transition-slow);
+}
+
+/* ========================================
+   シークバーボタン
+   ======================================== */
+.seq-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-xs);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+    backdrop-filter: blur(3px);
+}
+
+.seq-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.seq-btn:active {
+    transform: scale(0.95);
+}
+
+.seq-btn.play {
+    width: 32px;
+    height: 32px;
+    font-size: var(--font-md);
+}
+
+/* ========================================
+   シークバー本体
+   ======================================== */
+.sequence-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    max-width: 600px;
+}
+
+.sequence-bar-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(
+        90deg,
+        rgba(184, 134, 11, 0.8),
+        rgba(218, 165, 32, 0.8)
+    );
+    border-radius: 3px;
+    pointer-events: none;
+    transition: width 0.05s linear;
+}
+
+.sequence-bar-handle {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(184, 134, 11, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    transition: left 0.05s linear;
+}
+
+/* ========================================
+   フレーム表示
+   ======================================== */
+.frame-display {
+    position: absolute;
+    bottom: var(--frame-bottom-base);
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-sm);
+    font-weight: bold;
+    pointer-events: none;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    transition: bottom var(--transition-slow);
+    z-index: var(--z-controls);
+}

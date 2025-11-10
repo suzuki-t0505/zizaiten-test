@@ -1,0 +1,277 @@
+/* セッション0.9.0 - 2025-10-17 */
+/* ハンバーガーメニュー */
+/* 右側スライドイン方式、オーバーレイ背景 */
+
+/* ========================================
+   オーバーレイ背景
+   ======================================== */
+.hamburger-backdrop {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.hamburger-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========================================
+   ハンバーガーメニュー本体
+   ======================================== */
+.hamburger-menu {
+    position: fixed;
+    top: var(--header-height);
+    right: 0;
+    width: 300px;
+    height: calc(100vh - var(--header-height));
+    background: var(--color-bg-primary);
+    border-left: 1px solid var(--color-border-normal);
+    z-index: 5100;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.hamburger-menu.open {
+    transform: translateX(0);
+}
+
+/* ========================================
+   ヘッダー部
+   ======================================== */
+.hamburger-menu-header {
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border-normal);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+
+.hamburger-user-info {
+    flex: 1;
+}
+
+.hamburger-user-name {
+    font-size: var(--font-md);
+    color: var(--color-text-primary);
+    font-weight: bold;
+    margin-bottom: var(--spacing-xs);
+}
+
+.hamburger-plan-name {
+    font-size: var(--font-sm);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xxs);
+}
+
+.hamburger-studio-name {
+    font-size: var(--font-xs);
+    color: var(--color-text-secondary);
+}
+
+.hamburger-close {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: var(--font-xl);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: var(--spacing-md);
+}
+
+.hamburger-close:hover {
+    color: var(--color-text-primary);
+    background: var(--color-gray-700);
+    border-radius: 4px;
+}
+
+/* ========================================
+   メインメニュー
+   ======================================== */
+.hamburger-menu-body {
+    flex: 1;
+    padding: var(--spacing-md) 0;
+    overflow-y: auto;
+}
+
+/* セクション */
+.hamburger-section {
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--color-border-normal);
+}
+
+.hamburger-section:last-child {
+    border-bottom: none;
+}
+
+/* セクションタイトル */
+.hamburger-section-title {
+    font-size: var(--font-sm);
+    color: var(--color-text-secondary);
+    padding: 0 var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    font-weight: bold;
+}
+
+/* メニューアイテム（通常） */
+.hamburger-menu-item {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: var(--font-md);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.hamburger-menu-item:hover {
+    background: var(--color-gray-700);
+}
+
+/* メニューアイテム（小） */
+.hamburger-menu-item-small {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: var(--font-sm);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.hamburger-menu-item-small:hover {
+    background: var(--color-gray-700);
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   設定アイテム
+   ======================================== */
+.hamburger-setting-item {
+    padding: var(--spacing-md) var(--spacing-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-md);
+    color: var(--color-text-primary);
+}
+
+/* 言語切り替え（3並びトグル） */
+.hamburger-toggle-group {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.toggle-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-gray-700);
+    border: 1px solid var(--color-border-normal);
+    color: var(--color-text-white);
+    font-size: var(--font-sm);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    min-width: 40px;
+}
+
+.toggle-btn:hover {
+    background: var(--color-gray-600);
+    color: var(--color-text-white);
+}
+
+.toggle-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+/* ダークモード/レフティモード スイッチ */
+.toggle-switch {
+    position: relative;
+    width: 48px;
+    height: 24px;
+    background: var(--color-gray-700);
+    border: 1px solid var(--color-border-normal);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    padding: 0;
+}
+
+.toggle-switch:hover {
+    background: var(--color-gray-600);
+}
+
+.toggle-switch.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.toggle-switch-slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background: var(--color-text-white);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.toggle-switch.active .toggle-switch-slider {
+    transform: translateX(24px);
+}
+
+/* ========================================
+   レスポンシブ対応
+   ======================================== */
+
+/* SP縦画面：幅を90%に */
+@media (max-width: 768px) and (orientation: portrait) {
+    .hamburger-menu {
+        width: 90%;
+    }
+}
+
+/* 極小画面 */
+@media (max-width: 480px) {
+    .hamburger-menu {
+        width: 100%;
+    }
+    
+    .hamburger-menu-header {
+        padding: var(--spacing-md);
+    }
+    
+    .hamburger-menu-item {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .hamburger-setting-item {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+}

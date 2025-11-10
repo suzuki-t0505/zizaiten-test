@@ -1,0 +1,171 @@
+/* セッション0.7.1 - 2025-10-15 */
+/* 3Dビューア・通知・モード表示・タイトル表示 */
+/* 更新: CSS変数を適用 */
+
+/* ========================================
+   JSコンテンツエリア
+   ======================================== */
+.js-content {
+    flex: 1;
+    background: var(--color-gray-900);
+    overflow: hidden;
+    perspective: 1000px;
+    position: relative;
+}
+
+/* ========================================
+   通知エリア
+   ======================================== */
+.notification-container {
+    position: absolute;
+    top: var(--spacing-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--z-notification);
+    pointer-events: none;
+}
+
+.notification {
+    background: rgba(0, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.95);
+    padding: 10px var(--spacing-xl);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    white-space: nowrap;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+/* 成功通知（デフォルト） */
+.notification.success {
+    background: rgba(74, 124, 89, 0.95);
+    color: var(--color-text-white);
+}
+
+/* エラー通知 */
+.notification.error {
+    background: rgba(220, 53, 69, 0.95);
+    color: var(--color-text-white);
+}
+
+/* ========================================
+   タイトル表示（JSコンテンツ下部、フレーム表示の上段）
+   ======================================== */
+.js-content-title {
+    position: absolute;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-md);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    z-index: 250;
+    pointer-events: none;
+    text-align: center;
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* JSコンテンツ内の★マーク */
+.js-title-star {
+    color: #ffd700;
+    text-shadow: 0 1px 3px rgba(255, 215, 0, 0.4);
+    font-size: var(--font-md);
+    margin-left: 3px;
+}
+
+/* ========================================
+   モード表示（左上）
+   ======================================== */
+.mode-indicator {
+    position: absolute;
+    left: var(--spacing-xl);
+    top: var(--spacing-xl);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-lg);
+    font-weight: bold;
+    z-index: var(--z-controls);
+    pointer-events: none;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   3Dビューア
+   ======================================== */
+.js-viewer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.viewer-3d-space {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    transform-style: preserve-3d;
+    transition: transform 0.1s linear;
+}
+
+.viewer-grid {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotateX(90deg) translateZ(-200px);
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 49px, #444 49px, #444 50px),
+        repeating-linear-gradient(90deg, transparent, transparent 49px, #444 49px, #444 50px);
+    background-size: 50px 50px;
+    opacity: 0.5;
+}
+
+.viewer-image-plane {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-border-normal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+}
+
+.viewer-image-plane img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.viewer-placeholder {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-lg);
+    text-align: center;
+}
+
+.viewer-notice {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-text-tertiary);
+    font-size: var(--font-xs);
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+}

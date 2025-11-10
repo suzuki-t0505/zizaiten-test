@@ -1,0 +1,64 @@
+/* セッション0.8.0 - 2025-10-17 */
+/* PC・SP横画面共通レスポンシブ */
+/* 更新: ヘッダー右側エリア（ログイン・ベル・ハンバーガー）のレスポンシブ対応 */
+
+/* ========================================
+   タブレット以下（768px以下）
+   ======================================== */
+@media (max-width: 768px) {
+    /* ヘッダーの調整 */
+    .header {
+        padding: 5px 10px;
+    }
+    
+    .header-right {
+        gap: 8px;
+    }
+    
+    .logo {
+        font-size: var(--font-xl);
+    }
+    
+    /* モーダルの調整 */
+    .modal-header {
+        padding: var(--spacing-lg) var(--spacing-xl);
+    }
+    
+    .modal-content {
+        padding: var(--spacing-xl);
+    }
+    
+    .modal-footer {
+        padding: var(--spacing-md) var(--spacing-xl);
+    }
+}
+
+/* ========================================
+   小型デバイス（480px以下）
+   ======================================== */
+@media (max-width: 480px) {
+    /* ヘッダーの調整 */
+    .header {
+        padding: 5px 8px;
+    }
+    
+    .header-right {
+        gap: 6px;
+    }
+    
+    /* フォントサイズの調整 */
+    .logo {
+        font-size: var(--font-lg);
+    }
+    
+    /* モーダルのさらなる調整 */
+    .modal-header,
+    .modal-content,
+    .modal-footer {
+        padding: var(--spacing-lg);
+    }
+    
+    .modal-title {
+        font-size: var(--font-xl);
+    }
+}

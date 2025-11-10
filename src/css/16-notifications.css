@@ -1,0 +1,350 @@
+/* セッション0.8.1 - 2025-10-17 */
+/* お知らせ通知UI専用スタイル */
+/* 更新: ベルアイコンを画像に変更、丸型ボタンでクロップ */
+
+/* ========================================
+   ベルアイコンボタン
+   ======================================== */
+.notification-bell {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+    border-radius: 50%; /* 丸型ボタン */
+    overflow: hidden; /* 画像クロップ */
+    padding: 0;
+}
+
+.notification-bell:hover {
+    transform: scale(1.1);
+}
+
+.notification-bell:active {
+    transform: scale(0.95);
+}
+
+/* ベルアイコン画像 */
+.notification-bell-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像をクロップして表示 */
+    display: block;
+}
+
+/* 未読バッジ（ドット） */
+.notification-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    background: #f44336;
+    border-radius: 50%;
+    display: none;
+}
+
+.notification-badge.show {
+    display: block;
+}
+
+/* ========================================
+   通知ドロップダウン
+   ======================================== */
+.notification-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 360px;
+    max-height: 480px;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-normal);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.notification-dropdown.show {
+    display: flex;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ドロップダウンヘッダー */
+.notification-dropdown-header {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.notification-dropdown-title {
+    font-size: var(--font-lg);
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.notification-mark-all-read {
+    font-size: var(--font-sm);
+    color: var(--color-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+}
+
+.notification-mark-all-read:hover {
+    background: var(--color-gray-200);
+}
+
+/* ドロップダウンリスト */
+.notification-dropdown-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+.notification-dropdown-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-dropdown-list::-webkit-scrollbar-track {
+    background: var(--color-gray-200);
+}
+
+.notification-dropdown-list::-webkit-scrollbar-thumb {
+    background: var(--color-gray-500);
+    border-radius: var(--radius-sm);
+}
+
+/* 通知アイテム */
+.notification-item {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border-light);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.notification-item:hover {
+    background: var(--color-gray-100);
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+/* 未読アイテムの背景色 */
+.notification-item.unread {
+    background: rgba(33, 150, 243, 0.05);
+}
+
+.notification-item.unread:hover {
+    background: rgba(33, 150, 243, 0.1);
+}
+
+/* 未読ドット */
+.notification-item-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+}
+
+.notification-item.unread .notification-item-dot {
+    display: block;
+}
+
+.notification-item-dot {
+    display: none;
+}
+
+/* 通知内容 */
+.notification-item-content {
+    flex: 1;
+}
+
+.notification-item-title {
+    font-size: var(--font-md);
+    font-weight: bold;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+}
+
+.notification-item-message {
+    font-size: var(--font-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+}
+
+.notification-item-time {
+    font-size: var(--font-xs);
+    color: var(--color-text-tertiary);
+}
+
+/* ドロップダウンフッター */
+.notification-dropdown-footer {
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--color-border-light);
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.notification-view-all {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--color-border-normal);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-md);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.notification-view-all:hover {
+    background: var(--color-gray-100);
+}
+
+/* 空状態 */
+.notification-empty {
+    padding: var(--spacing-xxl);
+    text-align: center;
+    color: var(--color-text-tertiary);
+    font-size: var(--font-md);
+}
+
+/* ========================================
+   通知一覧モーダル
+   ======================================== */
+.notification-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.notification-list-item {
+    padding: var(--spacing-lg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.notification-list-item:hover {
+    background: var(--color-gray-100);
+    border-color: var(--color-border-normal);
+}
+
+.notification-list-item.unread {
+    background: rgba(33, 150, 243, 0.05);
+    border-color: var(--color-primary);
+}
+
+.notification-list-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.notification-list-item-title {
+    font-size: var(--font-lg);
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.notification-list-item-badge {
+    padding: 2px 8px;
+    background: var(--color-primary);
+    color: var(--color-text-white);
+    font-size: var(--font-xs);
+    border-radius: var(--radius-sm);
+    font-weight: bold;
+}
+
+.notification-list-item-message {
+    font-size: var(--font-md);
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+}
+
+.notification-list-item-time {
+    font-size: var(--font-sm);
+    color: var(--color-text-tertiary);
+}
+
+/* ページング */
+.notification-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.notification-pagination-button {
+    padding: 8px 16px;
+    background: var(--color-gray-200);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: var(--font-md);
+}
+
+.notification-pagination-button:hover {
+    background: var(--color-gray-300);
+}
+
+.notification-pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.notification-pagination-info {
+    font-size: var(--font-md);
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   レスポンシブ対応
+   ======================================== */
+@media (max-width: 480px) {
+    .notification-dropdown {
+        width: calc(100vw - 16px);
+        right: 8px;
+    }
+    
+    .notification-bell {
+        width: 32px;
+        height: 32px;
+    }
+}

@@ -1,0 +1,184 @@
+/* セッション0.7.1 - 2025-10-15 */
+/* 情報パネル内コンテンツ（セクション・バリエーション） */
+/* 新規作成: 06-content.cssから分離 */
+
+/* ========================================
+   情報パネル内セクション
+   ======================================== */
+.info-section {
+    padding: var(--spacing-xl);
+    flex-shrink: 0;
+}
+
+@media (min-width: 769px), ((max-width: 768px) and (orientation: landscape)) {
+    .info-section {
+        padding-left: 22px;
+    }
+    
+    .variation-section {
+        padding-left: 22px;
+    }
+    
+    .variation-content {
+        padding-left: 22px;
+    }
+}
+
+.info-section h3 {
+    font-size: var(--font-xl);
+    margin-bottom: 10px;
+    color: var(--color-text-primary);
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 5px;
+}
+
+/* ========================================
+   タイトル・説明テキスト
+   ======================================== */
+.title-text {
+    background: var(--color-bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-lg);
+    line-height: 1.5;
+    position: relative;
+}
+
+/* Title横の★マーク */
+.title-star {
+    color: #ffd700;
+    text-shadow: 0 1px 3px rgba(255, 215, 0, 0.3);
+    font-size: var(--font-lg);
+    margin-left: 5px;
+}
+
+.description-text {
+    background: var(--color-bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-lg);
+    line-height: 1.5;
+    min-height: 100px;
+}
+
+/* ========================================
+   情報パネル内タグ
+   ======================================== */
+.info-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.info-tag {
+    background: var(--color-text-tertiary);
+    color: var(--color-text-white);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-md);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.info-tag:hover {
+    background: var(--color-text-secondary);
+}
+
+/* 収録テーマタグ */
+.info-tag.collection-tag.selected {
+    background: var(--color-tag-collection);
+}
+
+.info-tag.collection-tag.selected-inactive {
+    background: var(--color-tag-collection-inactive);
+}
+
+/* キャラクタータグ */
+.info-tag.character-tag.selected {
+    background: var(--color-tag-character);
+}
+
+.info-tag.character-tag.selected-inactive {
+    background: var(--color-tag-character-inactive);
+}
+
+/* 服装タグ */
+.info-tag.costume-tag.selected {
+    background: var(--color-tag-costume);
+}
+
+.info-tag.costume-tag.selected-inactive {
+    background: var(--color-tag-costume-inactive);
+}
+
+/* シチュエーションタグ */
+.info-tag.situation-tag.selected {
+    background: var(--color-tag-situation);
+}
+
+.info-tag.situation-tag.selected-inactive {
+    background: var(--color-tag-situation-inactive);
+}
+
+/* ========================================
+   バリエーションエリア
+   ======================================== */
+.variation-area {
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.variation-section {
+    padding: var(--spacing-xl);
+    flex-shrink: 0;
+}
+
+.variation-section h3 {
+    font-size: var(--font-xl);
+    margin-bottom: 10px;
+    color: var(--color-text-primary);
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 5px;
+}
+
+.variation-content {
+    padding: 0 var(--spacing-xl) var(--spacing-xl) var(--spacing-xl);
+    overflow: visible;
+}
+
+.variation-grid {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(auto-fill, var(--thumbnail-size, 60px));
+    justify-content: center;
+}
+
+/* ========================================
+   バリエーションアイテム
+   ======================================== */
+.variation-item {
+    aspect-ratio: 1;
+    background: #e9e9e9;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+    position: relative;
+    width: var(--thumbnail-size, 60px);
+    height: var(--thumbnail-size, 60px);
+    overflow: hidden;
+}
+
+.variation-item:hover {
+    transform: scale(1.05);
+}
+
+.variation-item.selected {
+    border: 3px solid var(--color-primary);
+    box-shadow: 0 0 10px rgba(184, 134, 11, 0.5);
+}
+
+.variation-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

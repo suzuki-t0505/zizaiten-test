@@ -1,0 +1,121 @@
+/* セッション0.8.0 - 2025-10-17 */
+/* Gmail風メール表示スタイル（モーダル内で使用） */
+/* 独立実装：既存CSSと分離 */
+
+/* ========================================
+   メール表示コンテナ
+   ======================================== */
+.mail-display {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ========================================
+   メール情報エリア
+   ======================================== */
+.mail-info {
+    padding: 16px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 24px;
+}
+
+.mail-from,
+.mail-date {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #5f6368;
+}
+
+.mail-label {
+    font-weight: 600;
+    color: #202124;
+}
+
+.mail-from-text,
+.mail-date-text {
+    color: #5f6368;
+}
+
+/* ========================================
+   メール本文
+   ======================================== */
+.mail-body {
+    font-size: 15px;
+    color: #202124;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    min-height: 100px;
+    margin-bottom: 24px;
+}
+
+/* メール内のボタン */
+.mail-action-button {
+    display: inline-block;
+    margin: 24px 0;
+    padding: 12px 32px;
+    background: #1a73e8;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+}
+
+.mail-action-button:hover {
+    background: #1765cc;
+}
+
+.mail-action-button:active {
+    transform: scale(0.98);
+}
+
+/* ========================================
+   検証用注釈
+   ======================================== */
+.mail-note {
+    padding: 16px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #856404;
+    line-height: 1.6;
+    margin-top: 24px;
+}
+
+/* ========================================
+   レスポンシブ対応
+   ======================================== */
+@media (max-width: 768px) {
+    .mail-info {
+        padding: 12px 0;
+        margin-bottom: 16px;
+    }
+    
+    .mail-body {
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+    
+    .mail-note {
+        padding: 12px;
+        font-size: 12px;
+        margin-top: 16px;
+    }
+    
+    .mail-action-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mail-action-button {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
