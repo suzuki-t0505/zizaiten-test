@@ -3,6 +3,12 @@
 // 依存: auth.js, login.js, notifications.js
 // 更新: 会員登録完了通知削除、パスワード再設定フォーム追加
 
+import { isLoggedIn, getUserEmail, getMemberTypeDisplay, getStudioProjects, performLogout } from "./auth.js";
+import { getRecentNotifications, getAllNotifications, getNotificationById, markAsRead, markAllAsRead } from "./notifications.js";
+import { showModal, closeModal } from "./modal.js";
+import { showNotification } from "./capture.js";
+import { showLoginModal, AUTH_MODAL_MODES } from "./login.js";
+
 // ========================================
 // ヘッダーUI初期化
 // ========================================
@@ -10,7 +16,7 @@
 /**
  * ヘッダーの認証UI初期化
  */
-function initHeaderAuthUI() {
+export function initHeaderAuthUI() {
     const headerRight = document.querySelector('.header-right');
     
     if (!headerRight) {
@@ -38,7 +44,7 @@ function initHeaderAuthUI() {
 /**
  * ヘッダーの認証UI更新
  */
-function updateHeaderAuthUI() {
+export function updateHeaderAuthUI() {
     const headerRight = document.querySelector('.header-right');
     
     if (!headerRight) {
@@ -527,11 +533,18 @@ function completeEmailLogin() {
 /**
  * ログアウト処理
  */
-function handleLogout() {
+export function handleLogout() {
     performLogout();
     updateHeaderAuthUI();
     showNotification('ログアウトしました。', 'info');
 }
+
+// HTMLから呼ばれる関数をwindowに登録
+window.handleNotificationClick = handleNotificationClick;
+window.handleMarkAllAsRead = handleMarkAllAsRead;
+window.showAllNotificationsModal = showAllNotificationsModal;
+window.showNotificationListModal = showNotificationListModal;
+window.handleMailAction = handleMailAction;
 
 // ========================================
 // ハンバーガーメニュー制御（既存機能との統合用）

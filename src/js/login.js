@@ -3,11 +3,14 @@
 // 依存: auth.js, modal.js, notifications.js
 // 更新: パスワード再設定フォーム追加
 
+import { showNotification } from "./capture";
+import { showModal, closeModal } from "./modal";
+
 // ========================================
 // モーダル表示モード
 // ========================================
 
-const AUTH_MODAL_MODES = {
+export const AUTH_MODAL_MODES = {
     LOGIN: 'login',              // メインログイン画面
     REGISTER: 'register',        // 新規会員登録画面
     RESET_PASSWORD: 'reset',     // パスワードリセット画面（メール送信）
@@ -23,7 +26,7 @@ const AUTH_MODAL_MODES = {
  * ログインモーダルを表示
  * @param {string} mode - 表示モード（AUTH_MODAL_MODES）
  */
-function showLoginModal(mode = AUTH_MODAL_MODES.LOGIN) {
+export function showLoginModal(mode = AUTH_MODAL_MODES.LOGIN) {
     const content = generateAuthModalContent(mode);
     const title = getAuthModalTitle(mode);
     

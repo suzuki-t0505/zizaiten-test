@@ -3,6 +3,12 @@
 // 依存: state.js, filtering.js, chips.js, suggest.js, ui.js
 // 更新: タグチップクリック処理の修正（closest使用）
 
+import { state } from "./state";
+import { generateThumbnails, generateInfoTags, generateTags } from "./ui";
+import { hasActiveSuggestion, moveSuggestionSelection, insertActiveSuggestion, showTagSuggestions, hideSuggestions } from "./suggest";
+import { countTagContents } from "./filtering";
+import { createTagChip, createTextChip } from "./chips";
+
 // ========================================
 // カーソル操作ヘルパー関数
 // ========================================
@@ -163,7 +169,7 @@ let isSyncingState = false; // MutationObserver用フラグ
 /**
  * 検索入力エリアの状態をグローバルstateに同期
  */
-function syncSearchState() {
+export function syncSearchState() {
     isSyncingState = true;
     
     const container = document.getElementById('searchInputArea');
@@ -454,7 +460,7 @@ function handleBackspaceKey(e) {
 /**
  * 検索入力エリアの初期化（メイン関数）
  */
-function setupSearchInput() {
+export function setupSearchInput() {
     const searchInputArea = document.getElementById('searchInputArea');
     
     // 入力監視（サジェスト表示）

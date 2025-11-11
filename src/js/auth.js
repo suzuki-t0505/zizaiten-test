@@ -30,7 +30,7 @@ const authState = {
  * @param {string} password - パスワード
  * @returns {Object} - {success: boolean, message: string}
  */
-function performLogin(email, password) {
+export function performLogin(email, password) {
     // 入力チェック
     if (!email || !password) {
         return {
@@ -142,7 +142,7 @@ function performRegister(data) {
 /**
  * ログアウト処理
  */
-function performLogout() {
+export function performLogout() {
     authState.isLoggedIn = false;
     authState.userEmail = null;
     authState.memberType = 'free';
@@ -157,7 +157,7 @@ function performLogout() {
  * ログイン状態を取得
  * @returns {boolean}
  */
-function isLoggedIn() {
+export function isLoggedIn() {
     return authState.isLoggedIn;
 }
 
@@ -165,7 +165,7 @@ function isLoggedIn() {
  * ユーザーメールを取得
  * @returns {string|null}
  */
-function getUserEmail() {
+export function getUserEmail() {
     return authState.userEmail;
 }
 
@@ -181,7 +181,7 @@ function getMemberType() {
  * 会員タイプの表示名を取得
  * @returns {string}
  */
-function getMemberTypeDisplay() {
+export function getMemberTypeDisplay() {
     const typeMap = {
         'free': 'フリープラン',
         'starter': 'スタータープラン',
@@ -197,7 +197,7 @@ function getMemberTypeDisplay() {
  * スタジオプロジェクト一覧を取得（将来実装用）
  * @returns {Array}
  */
-function getStudioProjects() {
+export function getStudioProjects() {
     return authState.studioProjects;
 }
 

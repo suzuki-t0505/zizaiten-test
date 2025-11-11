@@ -7,42 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZIZAITEN - 自在視点マンガ素材集</title>
-    
-    <!-- CSS読み込み（読み込み順序厳守） -->
-    <!-- 基盤 -->
-    <link rel="stylesheet" href="src/css/01-reset.css">
-    <link rel="stylesheet" href="src/css/02-layout.css">
-    
-    <!-- コンポーネント -->
-    <link rel="stylesheet" href="src/css/03-panels.css">
-    <link rel="stylesheet" href="src/css/04-viewer.css">
-    <link rel="stylesheet" href="src/css/05-buttons.css">
-    <link rel="stylesheet" href="src/css/06-seekbar.css">
-    <link rel="stylesheet" href="src/css/07-tags.css">
-    <link rel="stylesheet" href="src/css/08-thumbnails.css">
-    <link rel="stylesheet" href="src/css/09-info.css">
-    <link rel="stylesheet" href="src/css/10-modal-base.css">
-    <link rel="stylesheet" href="src/css/11-modal-search.css">
-    
-    <!-- レスポンシブ -->
-    <link rel="stylesheet" href="src/css/12-responsive.css">
-    <link rel="stylesheet" href="src/css/13-responsive-sp.css">
-    
-    <!-- ユーティリティ -->
-    <link rel="stylesheet" href="src/css/14-utilities.css">
-    
-    <!-- 認証・通知UI -->
-    <link rel="stylesheet" href="src/css/15-auth.css">
-    <link rel="stylesheet" href="src/css/16-notifications.css">
-    
-    <!-- ヘルプポップアップ -->
-    <link rel="stylesheet" href="src/css/17-popup-help.css">
-    
-    <!-- ハンバーガーメニュー（新規） -->
-    <link rel="stylesheet" href="src/css/18-hamburger-menu.css">
-    
-    <!-- Gmail風メールスタイル（独立） -->
-    <link rel="stylesheet" href="src/demomail//mail.css">
 </head>
 <body>
     <div class="canvas">
@@ -315,33 +279,7 @@
     <!-- オーバーレイ背景（新規） -->
     <div id="hamburgerBackdrop" class="hamburger-backdrop" onclick="closeHamburgerMenu()"></div>
 
-    <!-- JavaScript読み込み（依存関係順） -->
-    <script src="src/js/state.js"></script>
-    <script src="src/js/data.js"></script>
-    <script src="src/js/filtering.js"></script>
-    <script src="src/js/modal.js"></script>
-    <script src="src/js/ui.js"></script>
-    <script src="src/js/chips.js"></script>
-    <script src="src/js/suggest.js"></script>
-    <script src="src/js/searchinput.js"></script>
-    <script src="src/js/modalsearch.js"></script>
-    <script src="src/js/tagmodal.js"></script>
-    <script src="src/js/tags.js"></script>
-    <script src="src/js/capture.js"></script>
-    <script src="src/js/panels.js"></script>
-    <script src="src/js/viewer.js"></script>
-    <script src="src/js/controls.js"></script>
-    <script src="src/js/events.js"></script>
-    <!-- 認証・通知関連 -->
-    <script src="src/js/auth.js"></script>
-    <script src="src/js/notifications.js"></script>
-    <script src="src/js/login.js"></script>
-    <script src="src/js/header.js"></script>
-    <!-- ヘルプポップアップ -->
-    <script src="src/js/help.js"></script>
-    <!-- ハンバーガーメニュー（新規） -->
-    <script src="src/js/hamburger.js"></script>
-    <!-- メイン初期化 -->
-    <script src="src/js/main.js"></script>
+    <!-- メインのJavaScriptファイルをtype="module"で読み込む -->
+    <script type="module" src="/src/js/main.js"></script>
 </body>
 </html>

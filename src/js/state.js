@@ -1,11 +1,11 @@
 // セッション0.6.4 - 2025-10-15
 // 状態管理
-// 更新: ピン止め機能、お気に入り機能追加
+// ESModules対応版
 
 // ========================================
 // 状態管理オブジェクト
 // ========================================
-const state = {
+export const state = {
     // タグ選択状態
     selectedCharacterTags: [],
     selectedCostumeTags: [],
@@ -19,15 +19,15 @@ const state = {
     activeCollectionTags: [],
     
     // フリーテキストチップ
-    textChips: [],              // すべてのフリーテキストチップ: [{text: string, active: boolean}]
-    activeTextChips: [],        // 有効なフリーテキストチップ: [{text: string, active: boolean}]
+    textChips: [],
+    activeTextChips: [],
     
     // 検索入力エリアの状態
-    searchInputHTML: '',        // contenteditable の innerHTML（保存用）
+    searchInputHTML: '',
     
-    // ピン止め・お気に入り（新規追加）
-    pinnedVideos: [],           // ピン止めされた動画ID配列（セッション中のみ保持）
-    favoriteVideos: [],         // お気に入り動画ID配列（セッション中のみ保持）
+    // ピン止め・お気に入り
+    pinnedVideos: [],
+    favoriteVideos: [],
     
     // UI状態
     isTagExpanded: false,
@@ -35,7 +35,7 @@ const state = {
     isInfoVisible: false,
     isWideMode: false,
     thumbnailSize: 60,
-    isSearchInputExpanded: false,  // SP縦画面用
+    isSearchInputExpanded: false,
     
     // ビデオ・モード状態
     currentVideo: null,
@@ -56,4 +56,13 @@ const state = {
 // ========================================
 // グローバル変数
 // ========================================
-let viewer3D = null;
+export let viewer3D = null;
+
+// viewer3Dを更新するためのセッター関数
+export function setViewer3D(viewer) {
+    viewer3D = viewer;
+}
+
+export function getViewer3D() {
+    return viewer3D;
+}

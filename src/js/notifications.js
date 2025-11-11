@@ -150,7 +150,7 @@ https://zizaiten.example.com
  * すべての通知を取得
  * @returns {Array}
  */
-function getAllNotifications() {
+export function getAllNotifications() {
     return notificationState.notifications;
 }
 
@@ -167,7 +167,7 @@ function getUnreadNotifications() {
  * @param {number} id - 通知ID
  * @returns {Object|null}
  */
-function getNotificationById(id) {
+export function getNotificationById(id) {
     return notificationState.notifications.find(n => n.id === id) || null;
 }
 
@@ -175,7 +175,7 @@ function getNotificationById(id) {
  * ドロップダウン表示用の最新5件を取得
  * @returns {Array}
  */
-function getRecentNotifications() {
+export function getRecentNotifications() {
     return notificationState.notifications.slice(0, 5);
 }
 
@@ -187,7 +187,7 @@ function getRecentNotifications() {
  * 通知を既読にする
  * @param {number} id - 通知ID
  */
-function markAsRead(id) {
+export function markAsRead(id) {
     const notification = getNotificationById(id);
     if (notification) {
         notification.isRead = true;
@@ -199,7 +199,7 @@ function markAsRead(id) {
 /**
  * すべての通知を既読にする
  */
-function markAllAsRead() {
+export function markAllAsRead() {
     notificationState.notifications.forEach(n => n.isRead = true);
     updateNotificationBadge();
     updateNotificationDropdown();

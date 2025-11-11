@@ -3,6 +3,12 @@
 // 依存: auth.js
 // 機能: メニュー開閉、設定トグル（UI のみ、実際の適用は将来実装）
 
+import { state } from "./state.js";
+import { isLoggedIn, getUserEmail, getMemberTypeDisplay, getStudioProjects, performLogout } from "./auth.js";
+import { updateHeaderAuthUI, handleLogout } from "./header.js";
+import { showModal } from "./modal.js";
+import { showNotification } from "./capture.js";
+
 // ========================================
 // ハンバーガーメニュー状態
 // ========================================
@@ -25,7 +31,7 @@ const hamburgerState = {
 /**
  * ハンバーガーメニュー初期化
  */
-function initHamburgerMenu() {
+export function initHamburgerMenu() {
     // メニュー状態を反映
     updateHamburgerMenu();
     
@@ -78,7 +84,7 @@ function openHamburgerMenu() {
 /**
  * ハンバーガーメニューを閉じる
  */
-function closeHamburgerMenu() {
+export function closeHamburgerMenu() {
     const menu = document.getElementById('hamburgerMenu');
     const backdrop = document.getElementById('hamburgerBackdrop');
     
@@ -95,7 +101,7 @@ function closeHamburgerMenu() {
 /**
  * ハンバーガーメニューをトグル
  */
-function toggleHamburgerMenu() {
+export function toggleHamburgerMenu() {
     if (hamburgerState.isOpen) {
         closeHamburgerMenu();
     } else {
@@ -410,3 +416,18 @@ function navigateToCompany() {
     // TODO: 運営会社ページ実装
     console.log('運営会社ページへ遷移（将来実装）');
 }
+
+// HTMLから呼ばれる関数をwindowに登録
+window.closeHamburgerMenu = closeHamburgerMenu;
+window.changeLanguage = changeLanguage;
+window.toggleProViewer = toggleProViewer;
+window.toggleDarkMode = toggleDarkMode;
+window.toggleLeftyMode = toggleLeftyMode;
+window.handleHamburgerLogout = handleHamburgerLogout;
+window.showUpgradeModal = showUpgradeModal;
+window.showInviteFriendModal = showInviteFriendModal;
+window.showOSSLicenseModal = showOSSLicenseModal;
+window.navigateToAccountManagement = navigateToAccountManagement;
+window.navigateToTerms = navigateToTerms;
+window.navigateToHelp = navigateToHelp;
+window.navigateToCompany = navigateToCompany;

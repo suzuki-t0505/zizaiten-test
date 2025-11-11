@@ -1,7 +1,72 @@
 // セッション0.9.0 - 2025-10-17
 // メイン初期化・統合
-// 依存: data.js, state.js, ui.js, viewer.js, controls.js, events.js, auth.js, notifications.js, header.js, hamburger.js
-// 更新: ハンバーガーメニュー初期化追加
+// ESModules対応版
+
+// CSS読み込み（読み込み順序厳守）
+// 基盤
+import '../css/01-reset.css';
+import '../css/02-layout.css';
+
+// コンポーネント
+import '../css/03-panels.css';
+import '../css/04-viewer.css';
+import '../css/05-buttons.css';
+import '../css/06-seekbar.css';
+import '../css/07-tags.css';
+import '../css/08-thumbnails.css';
+import '../css/09-info.css';
+import '../css/10-modal-base.css';
+import '../css/11-modal-search.css';
+
+// レスポンシブ
+import '../css/12-responsive.css';
+import '../css/13-responsive-sp.css';
+
+// ユーティリティ
+import '../css/14-utilities.css';
+
+// 認証・通知UI
+import '../css/15-auth.css';
+import '../css/16-notifications.css';
+
+// ヘルプポップアップ
+import '../css/17-popup-help.css';
+
+// ハンバーガーメニュー
+import '../css/18-hamburger-menu.css';
+
+// Gmail風メールスタイル
+import '../demomail/mail.css';
+
+// JavaScript読み込み（依存関係順）
+import { state, viewer3D } from './state.js';
+import { videoDatabase } from './data.js';
+import './filtering.js';
+import './modal.js';
+import { generateTags, generateThumbnails, generateInfoTags, generateVariations } from './ui.js';
+import './chips.js';
+import './suggest.js';
+import './searchinput.js';
+import './modalsearch.js';
+import './tagmodal.js';
+import './tags.js';
+import './capture.js';
+import { updateListPanel, updateInfoPanel } from './panels.js';
+import { init3DViewer, selectVideo } from './viewer.js';
+import { initPlaybackControls, updateFrameDisplay, updateSeekbar } from './controls.js';
+import { setupEventListeners } from './events.js';
+
+// 認証・通知関連
+import './auth.js';
+import './notifications.js';
+import './login.js';
+import { initHeaderAuthUI } from './header.js';
+
+// ヘルプポップアップ
+import './help.js';
+
+// ハンバーガーメニュー
+import { initHamburgerMenu, closeHamburgerMenu } from './hamburger.js';
 
 // ========================================
 // 初期化実行

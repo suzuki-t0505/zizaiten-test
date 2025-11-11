@@ -1,19 +1,8 @@
 // セッション0.8.1 - 2025-10-17
 // チップ生成機能
-// 依存: なし
-// 更新: 削除ボタンを左寄せに変更
+// ESModules対応版
 
-// ========================================
-// チップ生成ヘルパー関数
-// ========================================
-
-/**
- * タグチップを作成
- * @param {string} tagType - タグタイプ（collection/character/costume/situation）
- * @param {string} tagText - タグテキスト
- * @returns {HTMLElement|null} チップ要素（作成失敗時null）
- */
-function createTagChip(tagType, tagText) {
+export function createTagChip(tagType, tagText) {
     if (!tagText || !tagText.trim()) {
         return null;
     }
@@ -26,14 +15,12 @@ function createTagChip(tagType, tagText) {
     chip.dataset.tag = tagText;
     chip.dataset.active = 'true';
     
-    // 削除ボタンを先に追加（左寄せ）
     const removeBtn = document.createElement('button');
     removeBtn.className = 'chip-remove';
     removeBtn.tabIndex = -1;
     removeBtn.textContent = '✖';
     chip.appendChild(removeBtn);
     
-    // テキスト部分を後から追加
     const textSpan = document.createElement('span');
     textSpan.className = 'chip-text';
     textSpan.textContent = tagText;
@@ -42,12 +29,7 @@ function createTagChip(tagType, tagText) {
     return chip;
 }
 
-/**
- * テキストチップを作成
- * @param {string} text - テキスト内容
- * @returns {HTMLElement|null} チップ要素（作成失敗時null）
- */
-function createTextChip(text) {
+export function createTextChip(text) {
     if (!text || !text.trim()) {
         return null;
     }
@@ -59,14 +41,12 @@ function createTextChip(text) {
     chip.dataset.text = text;
     chip.dataset.active = 'true';
     
-    // 削除ボタンを先に追加（左寄せ）
     const removeBtn = document.createElement('button');
     removeBtn.className = 'chip-remove';
     removeBtn.tabIndex = -1;
     removeBtn.textContent = '✖';
     chip.appendChild(removeBtn);
     
-    // テキスト部分を後から追加
     const textSpan = document.createElement('span');
     textSpan.className = 'chip-text';
     textSpan.textContent = text;

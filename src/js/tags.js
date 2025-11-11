@@ -3,6 +3,10 @@
 // 依存: state.js, search.js, ui.js
 // 更新: 無料素材表記統一（関数名変更: toggleFreeWeeklyTag → toggleFreeMaterialTag）
 
+import { state } from "./state.js";
+import { createTagChip } from "./chips.js";
+import { generateThumbnails, generateInfoTags, generateTags } from "./ui.js";
+
 // ========================================
 // 汎用タグトグル
 // ========================================
@@ -58,26 +62,26 @@ function toggleTag(tagType, tag) {
 // タグ操作（ラッパー関数）
 // ========================================
 
-function toggleCollectionTag(tag) {
+export function toggleCollectionTag(tag) {
     toggleTag('collection', tag);
 }
 
-function toggleCharacterTag(tag) {
+export function toggleCharacterTag(tag) {
     toggleTag('character', tag);
 }
 
-function toggleCostumeTag(tag) {
+export function toggleCostumeTag(tag) {
     toggleTag('costume', tag);
 }
 
-function toggleSituationTag(tag) {
+export function toggleSituationTag(tag) {
     toggleTag('situation', tag);
 }
 
 /**
  * お気に入りタグのトグル（特別処理）
  */
-function toggleFavoriteTag() {
+export function toggleFavoriteTag() {
     const tag = 'お気に入り';
     const isSelected = state.selectedCharacterTags.includes(tag);
     const isActive = state.activeCharacterTags.includes(tag);
@@ -116,7 +120,7 @@ function toggleFavoriteTag() {
 /**
  * 無料素材タグのトグル（特別処理）
  */
-function toggleFreeMaterialTag() {
+export function toggleFreeMaterialTag() {
     const tag = '無料素材';
     const isSelected = state.selectedCharacterTags.includes(tag);
     const isActive = state.activeCharacterTags.includes(tag);

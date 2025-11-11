@@ -3,6 +3,9 @@
 // 依存: state.js, data.js, modal.js, ui.js, filtering.js, chips.js, searchinput.js, modalsearch.js
 // 更新: 無料素材表記統一（内部変数含む完全統一）
 
+import { state } from "./state";
+import { setupModalSearchInput } from "./modalsearch";
+
 // ========================================
 // スペースクリーンアップ（モーダル専用）
 // ========================================
@@ -121,7 +124,7 @@ function removeChipByTagFromModal(container, tag) {
 /**
  * タグ検索モーダルを表示
  */
-function showTagSearchModal() {
+export function showTagSearchModal() {
     const tagCounts = countTagContents(); // filtering.jsの関数を使用
     
     // モーダル内の一時的な選択状態

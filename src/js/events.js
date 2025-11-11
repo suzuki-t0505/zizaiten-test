@@ -3,11 +3,20 @@
 // 依存: search.js, tags.js, capture.js, panels.js, viewer.js, controls.js, hamburger.js
 // 更新: ハンバーガーメニューのクリックイベント追加
 
+import { state } from "./state.js";
+import { updateListPanel, updateInfoPanel } from "./panels.js";
+import { toggleMode } from "./viewer.js";
+import { setupSearchInput } from "./searchinput.js";
+import { toggleHamburgerMenu } from "./hamburger.js";
+import { togglePin } from "./ui.js";
+import { showHelpPopup } from "./help.js";
+import { showCaptureDownloadModal, captureToClipboard } from "./capture.js";
+
 // ========================================
 // イベントリスナー登録（統合版）
 // ========================================
 
-function setupEventListeners() {
+export function setupEventListeners() {
     // ========================================
     // タブ操作（完全独立）
     // ========================================

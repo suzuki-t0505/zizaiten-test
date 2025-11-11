@@ -12,7 +12,7 @@
  * @param {HTMLElement} searchInputArea - モーダル内検索入力エリア
  * @param {Function} syncCallback - 同期コールバック関数
  */
-function setupModalSearchInput(searchInputArea, syncCallback) {
+export function setupModalSearchInput(searchInputArea, syncCallback) {
     // チップ削除・トグル
     searchInputArea.addEventListener('click', (e) => {
         // 削除ボタンのクリック処理

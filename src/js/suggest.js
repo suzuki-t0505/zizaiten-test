@@ -3,6 +3,10 @@
 // 依存: state.js, filtering.js, chips.js
 // 新規作成: search.jsから分離
 
+import { countTagContents } from "./filtering";
+import { createTagChip } from "./chips";
+import { syncSearchState } from "./searchinput";
+
 // ========================================
 // サジェスト機能（キーボード操作対応）
 // ========================================
@@ -14,7 +18,7 @@ let currentSuggestionIndex = -1;
  * タグサジェストを表示
  * @param {string} inputText - 入力中のテキスト
  */
-function showTagSuggestions(inputText) {
+export function showTagSuggestions(inputText) {
     if (!inputText || inputText.length === 0) {
         hideSuggestions();
         return;
@@ -79,7 +83,7 @@ function renderSuggestions(matches) {
 /**
  * サジェストを非表示
  */
-function hideSuggestions() {
+export function hideSuggestions() {
     const container = document.getElementById('searchSuggestions');
     container.classList.remove('show');
     container.innerHTML = '';
@@ -90,7 +94,7 @@ function hideSuggestions() {
  * サジェストが表示中か判定
  * @returns {boolean} 表示中ならtrue
  */
-function hasActiveSuggestion() {
+export function hasActiveSuggestion() {
     const container = document.getElementById('searchSuggestions');
     return container.classList.contains('show');
 }
@@ -99,7 +103,7 @@ function hasActiveSuggestion() {
  * サジェスト選択を上下キーで移動
  * @param {string} direction - 'up'または'down'
  */
-function moveSuggestionSelection(direction) {
+export function moveSuggestionSelection(direction) {
     const container = document.getElementById('searchSuggestions');
     const items = container.querySelectorAll('.suggestion-item');
     
@@ -121,7 +125,7 @@ function moveSuggestionSelection(direction) {
 /**
  * 選択中のサジェストを確定
  */
-function insertActiveSuggestion() {
+export function insertActiveSuggestion() {
     const container = document.getElementById('searchSuggestions');
     const items = container.querySelectorAll('.suggestion-item');
     

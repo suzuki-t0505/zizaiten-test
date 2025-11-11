@@ -3,18 +3,20 @@
 // 依存: state.js
 // 更新: デバッグログ削除
 
+import { state } from "./state.js";
+
 // ========================================
 // フレーム表示・シークバー更新
 // ========================================
 
 // フレーム表示更新
-function updateFrameDisplay() {
+export function updateFrameDisplay() {
     const frameDisplay = document.getElementById('frameDisplay');
     frameDisplay.textContent = `${state.currentFrame} / ${state.totalFrames}`;
 }
 
 // シークバー更新
-function updateSeekbar() {
+export function updateSeekbar() {
     const percentage = ((state.currentFrame - 1) / (state.totalFrames - 1)) * 100;
     document.querySelector('.sequence-bar-progress').style.width = percentage + '%';
     document.querySelector('.sequence-bar-handle').style.left = percentage + '%';
@@ -28,7 +30,7 @@ let playbackInterval = null;
 const FPS = 24; // 24fps
 
 // 再生コントロール初期化
-function initPlaybackControls() {
+export function initPlaybackControls() {
     const btnPlay = document.getElementById('btnPlay');
     const btnPrevFrame = document.getElementById('btnPrevFrame');
     const btnNextFrame = document.getElementById('btnNextFrame');

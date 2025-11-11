@@ -1,7 +1,8 @@
 // セッション0.6.2 - 2025-10-15
 // パネル制御機能
-// 依存: state.js
-// 新規作成: events.jsからパネル制御機能を分離
+// ESModules対応版
+
+import { state } from './state.js';
 
 // ========================================
 // パネル制御（リファクタリング版）
@@ -44,11 +45,11 @@ function updatePanel(panelType) {
     }
 }
 
-function updateListPanel() {
+export function updateListPanel() {
     updatePanel('list');
 }
 
-function updateInfoPanel() {
+export function updateInfoPanel() {
     updatePanel('info');
 }
 

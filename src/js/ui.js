@@ -2,6 +2,13 @@
 // UI生成機能
 // 依存: data.js, state.js, filtering.js
 // 更新: 無料素材表記統一（内部変数含む完全統一）
+import { videoDatabase, characterTags } from "./data.js";
+import { state } from "./state.js";
+import { filterVideos, countTagContents } from "./filtering.js";
+import { showNotification } from "./capture.js";
+import { toggleFavoriteTag, toggleFreeMaterialTag, toggleCharacterTag, toggleCollectionTag, toggleCostumeTag, toggleSituationTag } from "./tags.js";
+import { showTagSearchModal } from "./tagmodal.js";
+import { selectVideo } from "./viewer.js";
 
 // ========================================
 // 画像エラーハンドリング共通関数
@@ -32,7 +39,7 @@ function createImageWithFallback(src, alt, placeholderText = 'No Image') {
 // タグ生成（動的高さ調整対応）
 // ========================================
 
-function generateTags() {
+export function generateTags() {
     const tagList = document.getElementById('tagList');
     tagList.innerHTML = '';
     
@@ -141,7 +148,7 @@ function generateTags() {
 // サムネイル生成（★マーク・ピンアイコン追加版）
 // ========================================
 
-function generateThumbnails() {
+export function generateThumbnails() {
     const thumbnailGrid = document.getElementById('thumbnailGrid');
     thumbnailGrid.innerHTML = '';
     
@@ -224,7 +231,7 @@ function generateThumbnails() {
 // バリエーション生成（ハイライト追加版）
 // ========================================
 
-function generateVariations(videoId) {
+export function generateVariations(videoId) {
     const variationArea = document.getElementById('variationArea');
     const variationGrid = document.getElementById('variationGrid');
     variationGrid.innerHTML = '';
@@ -262,7 +269,7 @@ function generateVariations(videoId) {
 // 情報タグ生成（情報パネル内、★マーク追加版）
 // ========================================
 
-function generateInfoTags(videoId) {
+export function generateInfoTags(videoId) {
     const infoTags = document.getElementById('infoTags');
     const titleText = document.querySelector('.title-text');
     
@@ -503,3 +510,6 @@ function toggleFavorite(id) {
     // お気に入りタグの表示/非表示を即座に更新（並べ替えはしない）
     generateTags();
 }
+
+// exportを追加
+export { togglePin, toggleFavorite };

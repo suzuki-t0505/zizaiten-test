@@ -1,13 +1,17 @@
 // セッション0.6.4 - 2025-10-15
 // ビューア統合機能（viewer3d.js統合版）
-// 依存: state.js, ui.js, capture.js
-// 更新: モード切り替え通知、jsContentTitleに★マーク追加
+// ESModules対応版
+
+import { state, setViewer3D, getViewer3D } from './state.js';
+import { videoDatabase } from './data.js';
+import { generateInfoTags, generateVariations } from './ui.js';
+import { showNotification } from './capture.js';
 
 // ========================================
 // CSS 3D ビューア初期化
 // ========================================
 
-function init3DViewer() {
+export function init3DViewer() {
     const viewer3dSpace = document.getElementById('viewer3dSpace');
     const viewerImagePlane = document.getElementById('viewerImagePlane');
     const jsContent = document.getElementById('jsContent');
@@ -126,14 +130,14 @@ function init3DViewer() {
     applyRotation();
     
     // グローバル変数に登録
-    viewer3D = { updateImage };
+    setViewer3D({ updateImage });
 }
 
 // ========================================
 // ビデオ選択
 // ========================================
 
-function selectVideo(id, autoScroll = false) {
+export function selectVideo(id, autoScroll = false) {
     state.currentVideo = id;
     const video = videoDatabase[id];
     
@@ -181,12 +185,12 @@ function selectVideo(id, autoScroll = false) {
     descriptionText.textContent = video.description;
     
     // 情報パネル更新
-    generateInfoTags(id); // ui.jsの関数
-    generateVariations(id); // ui.jsの関数
+    generateInfoTags(id);
+    generateVariations(id);
     
     // 3Dビューア画像更新
-    if (viewer3D && viewer3D.updateImage) {
-        viewer3D.updateImage(id);
+    if (getViewer3D() && getViewer3D().updateImage) {
+        getViewer3D().updateImage(id);
     }
 }
 
@@ -194,7 +198,7 @@ function selectVideo(id, autoScroll = false) {
 // モード切り替え
 // ========================================
 
-function toggleMode() {
+export function toggleMode() {
     state.currentMode = state.currentMode === 'camera' ? 'lens' : 'camera';
     const modeIndicator = document.getElementById('modeIndicator');
     

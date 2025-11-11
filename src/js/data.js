@@ -1,11 +1,11 @@
 // セッション0.6.2 - 2025-10-15
 // データベース定義
-// 更新: デバッグログ削除
+// ESModules対応版
 
 // ========================================
 // 動画データベース
 // ========================================
-const videoDatabase = {
+export const videoDatabase = {
     "010": {
         "title": "袴姿で走る和装の男性",
         "description": "紺色の袴と着物を着た男性が腕を組んで走っている様子。和装での走行動作を観察できます。",
@@ -296,7 +296,7 @@ const videoDatabase = {
 // ========================================
 // キャラクタータグ一覧（動的生成）
 // ========================================
-const characterTags = Array.from(
+export const characterTags = Array.from(
     new Set(
         Object.values(videoDatabase)
             .flatMap(v => v.characterTags)

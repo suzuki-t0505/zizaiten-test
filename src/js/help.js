@@ -197,7 +197,7 @@ function getDeviceType() {
 // ========================================
 // ヘルプポップアップ表示
 // ========================================
-function showHelpPopup() {
+export function showHelpPopup() {
     // 既存のポップアップを削除
     const existingContainer = document.getElementById('helpPopupContainer');
     if (existingContainer) {

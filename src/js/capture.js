@@ -1,13 +1,15 @@
 // セッション0.6.2 - 2025-10-15
 // キャプチャ・通知機能
-// 依存: state.js, modal.js
-// 新規作成: events.jsからキャプチャ・通知機能を分離
+// ESModules対応版
+
+import { state } from './state.js';
+import { showModal } from './modal.js';
 
 // ========================================
 // 通知表示
 // ========================================
 
-function showNotification(message, type = 'success') {
+export function showNotification(message, type = 'success') {
     const container = document.getElementById('notificationContainer');
     
     container.innerHTML = '';
@@ -35,7 +37,7 @@ function showNotification(message, type = 'success') {
 // キャプチャー機能
 // ========================================
 
-async function captureToClipboard() {
+export async function captureToClipboard() {
     if (!state.currentVideo) {
         showNotification('素材を選択してください', 'error');
         return;
@@ -99,7 +101,7 @@ function updateCaptureCountDisplay() {
     }
 }
 
-function showCaptureDownloadModal() {
+export function showCaptureDownloadModal() {
     const content = document.createElement('div');
     content.style.textAlign = 'center';
     content.style.padding = '20px 0';
